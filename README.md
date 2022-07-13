@@ -1,7 +1,7 @@
 # Dapps-GPS
-Causal inference refers to an intellectual discipline that considers the assumptions, study designs, and estimation strategies that allow researchers to draw causal conclusions based on data. 
+Ethereum is a decentralized, open-source blockchain with smart contract functionality. Ether is the native cryptocurrency of the platform. Among cryptocurrencies, Ether is second only to Bitcoin in market capitalization. Ethereum was conceived in 2013 by programmer Vitalik Buterin. 
 
-![Ethereum Blockchain](./images/Screenshot from 2022-07-13 16-08-18.png)
+![Ethereum-Blockchain](https://github.com/RYees/dapps-gps/blob/main/images/Screenshot%20from%202022-07-13%2016-08-18.png)
 
 # Table of content
 * [Overview](#overview)
