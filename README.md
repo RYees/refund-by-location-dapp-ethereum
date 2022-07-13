@@ -10,14 +10,14 @@ Ethereum is a decentralized, open-source blockchain with smart contract function
 * [Installation](#installation)
 
 ## Overview
-This project is do a refund by location smart contract that is aimed to be used when one party, for example an employer, agrees to pay another party, when an employee, for being present in a certain geographic area for a certain duration. The employee’s phone sends its GPS location to a smart contract at a certain interval. Based on the pre-agreed contract codified in an Ethereum smart contract, a cryptocurrency payment is executed when all the agreed conditions are met. If, at any point, the GPS sensor indicates that an employee is outside the range of the agreed GPS area, the contract state will be updated to indicate that it is out of compliance.  
+This project is about doing a refund by location smart contract that is aimed to be used when one party, for example an employer, agrees to pay another party, when an employee, for being present in a certain geographic area for a certain duration. The employee’s phone sends its GPS location to a smart contract at a certain interval. Based on the pre-agreed contract codified in an Ethereum smart contract, a cryptocurrency payment is executed when all the agreed conditions are met. If, at any point, the GPS sensor indicates that an employee is outside the range of the agreed GPS area, the contract state will be updated to indicate that it is out of compliance.  
 
 
 ## Introduction
 As indicated in the overview this project main objective is to create a smart contract in ethereum blockchain that includes the above conditions that are mentioned. In this spirit, the following tasks will be done:
-* There will be a function that tracks the employees' geographical location or it will accept the location that is sent by the employee;
+* There will be a function that will accept the location that is sent from the employee device;
 * There will be a function that will evalutate the recieved location for a certain duration and decides if the smart contract is met or not;
-* There will be a function that gives response if the above condition is not met, an out of compliance error will be fired or if it is met a transaction will be made to the employee;
+* There will be a function that gives response if the above condition is not met, an out of compliance error will be fired;
 
 
 ## Workflow
