@@ -1,6 +1,8 @@
 # Dapps-GPS
 Causal inference refers to an intellectual discipline that considers the assumptions, study designs, and estimation strategies that allow researchers to draw causal conclusions based on data. 
 
+![Ethereum Blockchain](./images/Screenshot from 2022-07-13 16-08-18.png)
+
 # Table of content
 * [Overview](#overview)
 * [Introduction](#introduction)
