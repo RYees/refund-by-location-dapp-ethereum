@@ -4,7 +4,7 @@ const main = async () => {
 
   await locationContract.deployed();
 
-  console.log("Location address: ", locationContract.address);
+  console.log("Transactions deployed to: ", locationContract.address);
 };
 
 const runMain = async () => {
