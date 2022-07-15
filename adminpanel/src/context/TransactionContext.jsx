@@ -33,15 +33,16 @@ export const TransactionsProvider = ({ children }) => {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
 
-        const availableTransactions = await transactionsContract.getInstructors();
+        const availableTransactions = await transactionsContract.getInstructor('0x90F79bf6EB2c4f870365E785982E1f101E93b906');
 
         const structuredTransactions = availableTransactions.map((transaction) => ({
-          age: transaction.age,
-          fName: transaction.fName,
-          lName: transaction.lName,
+          transaction
+          // age: transaction[0],
+          // fName: transaction[1],
+          // lName: transaction[2],
         }));
-
-        console.log(structuredTransactions);
+         
+         console.log(availableTransactions[0]._hex);
 
         setTransactions(structuredTransactions);
       } else {
@@ -61,7 +62,7 @@ export const TransactionsProvider = ({ children }) => {
       if (accounts.length) {
         setCurrentAccount(accounts[0]);
 
-        // getInstructor();
+        getAllTransactions();
       } else {
         console.log("No accounts found");
       }
@@ -70,20 +71,20 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
-  // const checkIfTransactionsExists = async () => {
-  //   try {
-  //     if (ethereum) {
-  //       const transactionsContract = createEthereumContract();
-  //       const currentTransactionCount = await transactionsContract.countInstructors();
+  const checkIfTransactionsExists = async () => {
+    try {
+      if (ethereum) {
+        const transactionsContract = createEthereumContract();
+        const currentTransactionCount = await transactionsContract.countInstructors();
 
-  //       window.localStorage.setItem("transactionCount", currentTransactionCount);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
+        window.localStorage.setItem("transactionCount", currentTransactionCount);
+      }
+    } catch (error) {
+      console.log(error);
 
-  //     throw new Error("No ethereum object");
-  //   }
-  // };
+      throw new Error("No ethereum object");
+    }
+  };
 
   const connectWallet = async () => {
     try {
@@ -146,7 +147,7 @@ export const TransactionsProvider = ({ children }) => {
 
   useEffect(() => {
     checkIfWalletIsConnect();
-    // checkIfTransactionsExists();
+    checkIfTransactionsExists();
   }, []);
 
 // export const TransactionsProvider = ({children}) =>{
@@ -158,7 +159,8 @@ export const TransactionsProvider = ({ children }) => {
       sendTransaction, 
       formData, 
       handleChange,
-    
+      transactions
+     
       }}
     >
       {children}

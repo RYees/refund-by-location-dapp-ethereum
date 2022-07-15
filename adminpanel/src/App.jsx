@@ -11,9 +11,9 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
     />
   );
 export default function App() {
-    const { connectWallet, currentAccount, sendTransaction, formData, handleChange } = useContext(TransactionContext);
-    // console.log('late800');
-    // console.log(getAllTransactions);
+    const { connectWallet, currentAccount, sendTransaction, formData, handleChange, transactions } = useContext(TransactionContext);
+    console.log('late800');
+    console.log(transactions);
     const handleSubmit = (e) => {
       const { address, age, fName, lName } = formData;
   
