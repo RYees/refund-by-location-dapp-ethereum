@@ -12,61 +12,63 @@ const createEthereumContract = () => {
   const signer = provider.getSigner();
   const transactionsContract = new ethers.Contract(contractAddress, contractABI, signer);
 
-  console.log(transactionsContract);
+  
+  // console.log(transactionsContract.getInstructors);
+  return transactionsContract;
 };
 
-// export const TransactionsProvider = ({ children }) => {
-//   const [formData, setformData] = useState({ age: "", fName: "", lName: "" });
-//   const [currentAccount, setCurrentAccount] = useState("");
-//   const [isLoading, setIsLoading] = useState(false);
-//   const [transactionCount, setTransactionCount] = useState(localStorage.getItem("transactionCount"));
-//   const [transactions, setTransactions] = useState([]);
+export const TransactionsProvider = ({ children }) => {
+  const [formData, setformData] = useState({ address:"", age: "", fName: "", lName: "" });
+  const [currentAccount, setCurrentAccount] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [transactionCount, setTransactionCount] = useState(localStorage.getItem("transactionCount"));
+  const [transactions, setTransactions] = useState([]);
 
-//   const handleChange = (e, name) => {
-//     setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
-//   };
+  const handleChange = (e, name) => {
+    setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
+  };
 
-//   const getAllTransactions = async () => {
-//     try {
-//       if (ethereum) {
-//         const transactionsContract = createEthereumContract();
+  const getAllTransactions = async () => {
+    try {
+      if (ethereum) {
+        const transactionsContract = createEthereumContract();
 
-//         const availableTransactions = await transactionsContract.getInstructor();
+        const availableTransactions = await transactionsContract.getInstructors();
 
-//         const structuredTransactions = availableTransactions.map((transaction) => ({
-//           age: transaction.age,
-//           fName: transaction.fName,
-//           lName: transaction.lName,
-//         }));
+        const structuredTransactions = availableTransactions.map((transaction) => ({
+          age: transaction.age,
+          fName: transaction.fName,
+          lName: transaction.lName,
+        }));
 
-//         console.log(structuredTransactions);
+        console.log(structuredTransactions);
 
-//         setTransactions(structuredTransactions);
-//       } else {
-//         console.log("Ethereum is not present");
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+        setTransactions(structuredTransactions);
+      } else {
+        console.log("Ethereum is not present");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-//   const checkIfWalletIsConnect = async () => {
-//     try {
-//       if (!ethereum) return alert("Please install MetaMask.");
+  const checkIfWalletIsConnect = async () => {
+    try {
+      if (!ethereum) return alert("Please install MetaMask.");
 
-//       const accounts = await ethereum.request({ method: "eth_accounts" });
+      const accounts = await ethereum.request({ method: "eth_accounts" });
+      console.log(accounts);
+      if (accounts.length) {
+        setCurrentAccount(accounts[0]);
 
-//       if (accounts.length) {
-//         setCurrentAccount(accounts[0]);
-
-//         getInstructor();
-//       } else {
-//         console.log("No accounts found");
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+        // getInstructor();
+      } else {
+        console.log("No accounts found");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // const checkIfTransactionsExists = async () => {
   //   try {
@@ -83,82 +85,92 @@ const createEthereumContract = () => {
   //   }
   // };
 
-  // const connectWallet = async () => {
-  //   try {
-  //     if (!ethereum) return alert("Please install MetaMask.");
+  const connectWallet = async () => {
+    try {
+      if (!ethereum) return alert("Please install MetaMask.");
 
-  //     const accounts = await ethereum.request({ method: "eth_requestAccounts", });
+      const accounts = await ethereum.request({ method: "eth_requestAccounts", });
 
-  //     setCurrentAccount(accounts[0]);
-  //     window.location.reload();
-  //   } catch (error) {
-  //     console.log(error);
+      setCurrentAccount(accounts[0]);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
 
-  //     throw new Error("No ethereum object");
-  //   }
-  // };
+      throw new Error("No ethereum object");
+    }
+  };
 
-  // const sendTransaction = async () => {
-  //   try {
-  //     if (ethereum) {
-  //       const { age, fName, lName } = formData;
-  //       const transactionsContract = createEthereumContract();
-  //       // const parsedAmount = ethers.utils.parseEther(amount);
+  const sendTransaction = async () => {
+    try {
+      // if(!ethereum) return alert('please install metamask');
+      // const { age, fName, lName } = formData;
+      // createEthereumContract();
+    
+      if (ethereum) {
+        const { address, age, fName, lName } = formData;
+        const transactionsContract = createEthereumContract();
+        // const parsedAmount = ethers.utils.parseEther(amount);
 
-  //       await ethereum.request({
-  //         method: "eth_sendTransaction",
-  //         params: [{
-  //           from: currentAccount,
-  //           to: addressTo,
-  //           gas: "0x5208",
-  //           // value: parsedAmount._hex,
-  //         }],
-  //       });
+        // await ethereum.request({
+        //   method: "eth_sendTransaction",
+        //   params: [{
+        //     // from: currentAccount,
+        //     from: addressTo
+        //     // to: ,
+        //     // gas: "0x5208",
+        //     // value: parsedAmount._hex,
+        //   }],
+        // });
+//console.log(transactionsContract)
+        const transactionHash = await transactionsContract.setInstructor(address,age, fName, lName);
 
-  //       const transactionHash = await transactionsContract.setInstructor(age, fName, lName);
+        setIsLoading(true);
+        console.log(`Loading - ${transactionHash.hash}`);
+        await transactionHash.wait();
+        console.log(`Success - ${transactionHash.hash}`);
+        setIsLoading(false);
 
-  //       setIsLoading(true);
-  //       console.log(`Loading - ${transactionHash.hash}`);
-  //       await transactionHash.wait();
-  //       console.log(`Success - ${transactionHash.hash}`);
-  //       setIsLoading(false);
+        const transactionsCount = await transactionsContract.countInstructors();
 
-  //       const transactionsCount = await transactionsContract.countInstructors();
+        setTransactionCount(transactionsCount.toNumber());
+        window.location.reload();
+      } else {
+        console.log("No ethereum object now");
+      }
+    } catch (error) {
+      console.log(error);
 
-  //       setTransactionCount(transactionsCount.toNumber());
-  //       window.location.reload();
-  //     } else {
-  //       console.log("No ethereum object");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
+      throw new Error("No ethereum object");
+    }
+  };
 
-  //     throw new Error("No ethereum object");
-  //   }
-  // };
+  useEffect(() => {
+    checkIfWalletIsConnect();
+    // checkIfTransactionsExists();
+  }, []);
 
-  // useEffect(() => {
-  //   checkIfWalletIsConnect();
-  //   checkIfTransactionsExists();
-  // }, [transactionCount]);
-
-export const TransactionsProvider = ({children}) =>{
+// export const TransactionsProvider = ({children}) =>{
   return (
     <TransactionContext.Provider
-     value={{value: 'test'}}
+    value={{
+      connectWallet,
+      currentAccount,
+      sendTransaction, 
+      formData, 
+      handleChange,
+    
+      }}
     >
       {children}
     </TransactionContext.Provider>
   );
-};
+}
 
-// value={{
-//   transactionCount,
-//   connectWallet,
-//   transactions,
-//   currentAccount,
-//   isLoading,
-//   sendTransaction,
-//   handleChange,
-//   formData,
-// }}
+// transactionCount,
+// connectWallet,
+// transactions,
+// currentAccount,
+// isLoading,
+// sendTransaction,
+// handleChange,
+// formData
