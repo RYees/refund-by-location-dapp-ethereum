@@ -38,7 +38,7 @@ export default function App() {
             </button>
      )}
    
-    <div className='text-center justify-center flex pt-36 pl-0 pr-0'>
+    <div className='text-center justify-center flex pl-0 pr-0'>
     <div className='text-center flex justify-center h-96 w-96 shadow-xl rounded-lg bg-gray-200'>
         <div>
         <h1 className='text-4xl mt-5'>Device Registration</h1>

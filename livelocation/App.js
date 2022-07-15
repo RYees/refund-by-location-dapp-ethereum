@@ -6,7 +6,7 @@ import { StatusBar} from 'expo-status-bar';
 
 export default function App() {
   async  function  GetCurrentLocation () {
-    let { status } = await Location.requestPermissionsAsync();
+    let { status } = await Location.requestForegroundPermissionsAsync();
 
     if (status !== "granted") {
       Alert.alert(
