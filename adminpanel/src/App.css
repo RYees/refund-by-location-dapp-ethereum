@@ -23,3 +23,9 @@
 .btn:hover {
   filter: brightness(110%);
 }
+
+.container {
+  background-color: #30414b;
+  color: #fff;
+  width: 72rem;
+}
