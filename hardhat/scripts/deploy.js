@@ -1,5 +1,5 @@
 const main = async () => {
-  const locationFactory = await hre.ethers.getContractFactory("Courses");
+  const locationFactory = await hre.ethers.getContractFactory("Employer");
   const locationContract = await locationFactory.deploy();
 
   await locationContract.deployed();
