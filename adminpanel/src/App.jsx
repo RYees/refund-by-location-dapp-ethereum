@@ -1,5 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { TransactionContext } from './context/TransactionContext'
+import TimeRangePicker from '@wojtekmaj/react-timerange-picker';
+
+import './App.css'
 const Input = ({ placeholder, name, type, value, handleChange }) => (
     <input
       placeholder={placeholder}
@@ -11,6 +14,8 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
     />
   );
 export default function App() {
+    const [value, onChange] = useState(['10:00', '11:00']);
+    const [show, setShow ] =  useState(true);
     const { connectWallet, currentAccount, sendTransaction, formData, handleChange, transactions } = useContext(TransactionContext);
     console.log('late800');
     console.log(transactions);
@@ -23,46 +28,65 @@ export default function App() {
   
       sendTransaction();
     };
+
+    const changePage = () => {
+       setShow(!show);
+    }
    
   return (
     <>
+ 
+    <div className='flex justify-between'>
+    <div>
      {!currentAccount && ( <button
               type="button"
               onClick={connectWallet}
-              className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
+              className="flex flex-row justify-center items-center my-5 bg-[#30414b] ml-4 p-3 rounded-full cursor-pointer"
             >
              
-              <p className="text-white text-base font-semibold">
+              <p className="btn text-white text-base font-semibold">
                 Connect Wallet
               </p>
             </button>
      )}
+     </div>
+
+     <div className='mr-5 cursor-pointer hover:bg-[#30414b] p-5 h-16 hover:text-white'>
+        <ul><li onClick={changePage}>View</li></ul>
+     </div>
+     
+     </div>
    
+   { show ?
     <div className='text-center justify-center flex pl-0 pr-0'>
-    <div className='text-center flex justify-center h-96 w-96 shadow-xl rounded-lg bg-gray-200'>
+    <div className='box text-center flex justify-center h-96 w-96 shadow-xl rounded-lg bg-gray-200'>
         <div>
-        <h1 className='text-4xl mt-5'>Device Registration</h1>
-        <div className='mt-12'>
-        <div className="p-5">
-            <Input placeholder="Address To" name="address" type="text" handleChange={handleChange} />
+        <h1 className='text-4xl mt-5 mb-9'>Device Registration</h1> 
+        <div className='box2 mt-42'>
+        <div className="field">
+            <Input placeholder="Employee Public Address To" name="address" type="text" className='' handleChange={handleChange} />
         </div>
-        <div className='p-5'>
-            <Input type="text" name="age" placeholder='enter age' className='p-3 rounded inset-0 shadow-xl' handleChange={handleChange} />
+        <div className='field'>
+            <Input type="text" name="age" placeholder='Enter Geographical Boundary' className='' handleChange={handleChange} />
         </div>
-        <div>
-            <Input type="text" name="fName" placeholder='enter fname' className='p-3 rounded inset-0 mb-5 shadow-xl' id="" handleChange={handleChange} />
+        <div className=''>
+            {/* <Input type="text" name="fName" placeholder='Release Time' className='' id="" handleChange={handleChange} /> */}
+         <lable>Time Limit</lable>
         </div>
-        <div>
-            <Input type="text" name="lName" placeholder='enter lname' className='p-3 rounded inset-0 shadow-xl' id="" handleChange={handleChange} />
+        <div className=''>
+            {/* <Input type="text" name="lName" placeholder='enter lname' className='' id="" handleChange={handleChange} /> */}
+            <TimeRangePicker className="h-10 w-96" onChange={onChange} value={value} />
         </div>
         </div>
-        <div className='mt-14'>
-        <button onClick={handleSubmit} className='py-5 px-7 w-32 text-xl bg-yellow-600 rounded-full cursor-pointer'>Add</button>
+        <div className='btn mt-14'>
+        <button onClick={handleSubmit} className='py-3 px-7 w-52 text-2xl bg-[#30414b] rounded text-white cursor-pointer'>Add</button>
         </div>
         </div>
     </div>
 </div>
+: null }
 </>
 
   )
 }
+
