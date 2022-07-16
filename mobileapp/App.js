@@ -27,7 +27,7 @@ export default function App() {
       });
 
       for (let item of response) {
-        let address = `${item.name}, ${item.street}, ${item.postalCode}, ${item.city}`;
+        let address = `${item.name}, ${item.latitude}, ${item.longitude}, ${item.city}`;
         alert(address);
         // setUserLocation(address);
       }
