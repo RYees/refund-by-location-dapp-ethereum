@@ -16,11 +16,11 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
   );
 export default function App() {
     const [value, onChange] = useState(['10:00', '11:00']);
-    // console.log('data', value);
+    console.log('data', value);
     const [show, setShow ] =  useState(true);
-    const { connectWallet, currentAccount, sendTransaction, formData, handleChange, transactions, transact, getTransactionDetails } = useContext(TransactionContext);
-    // console.log('late800');
-    console.log('bye',transact);
+    const { connectWallet, currentAccount, sendTransaction, formData, handleChange, transactions } = useContext(TransactionContext);
+    console.log('late800');
+    console.log(transactions.length);
     const handleSubmit = (e) => {
       // const timelimit = value;
       const { address, longitude, latitude, timelimit } = formData;
@@ -31,10 +31,11 @@ export default function App() {
   
       sendTransaction();
     };
-    const handSubmit = (index,e) => {
-         console.log(transactions[index].transaction);
-         getTransactionDetails(transactions[index].transaction);
-   }
+
+    const handSubmit = (add) => {
+      console.log(add);
+    }
+
     const changePage = () => {
        setShow(!show);
     }
@@ -65,7 +66,7 @@ export default function App() {
      )}
      </div>
 
-     <div className='mr-5 cursor-pointer z-10 hover:translate-y-1 hover:rounded hover:bg-[#30414b] px-4 py-4 mt-1 h-5 hover:text-white'>
+     <div className='mr-5 cursor-pointer z-10 hover:translate-y-1 hover:bg-[#30414b] px-4 py-4 mt-1 h-5 hover:text-white'>
         <ul><li className='-mt-3' onClick={changePage}>View</li></ul>
      </div>     
   </div>
@@ -98,51 +99,33 @@ export default function App() {
         </div>
     </div>
 </div>
-:
-<div className='bg-gray-200 h-screen'>
- <h1 className='text-4xl ml-5'> Device Information </h1>
-<div className='flex ml-24 gap-4'>
-<div className='container ml-10 mt-10'>
+: <div className='container ml-10 mt-10'>
       <table className='table table-striped'>
         <thead>
           <tr className='text-white'>
-            <th>ID</th>
-            <th> Employee Public Key </th>
+            <th> ID </th>
+            <th> Address </th>
+            <th> Geographical-Boundary </th>
+            <th> Time-Limit </th>
             <th> Detail </th>
-             {/*<th> Geographical-Boundary </th>
-            <th> Time-Limit </th> */}
           </tr>
         </thead>
         <tbody className='bg-gray-100'>
 
-         {transactions.map((item,index) => ( 
-            <tr key={index}>
-              <td>{index}</td>
-              <td>{item.transaction}</td>              
-              <td><button onClick={e => handSubmit(index,e)} className='coursor-ponter p-2 rounded hover:brightness-110 text-white bg-[#304b41]'>Info</button></td>
+         {datas.map((item,index) => ( 
+            <tr key={item.id}>
+              <td>{item.id}</td>
+              <td>{shortenAddress(item.address)}</td>
+              <td>{item.geoboundary}</td>
+              <td>{item.timelimit}</td>
+              <td><button onClick={handSubmit(2, index)}>Detail</button></td>
             </tr>
          ))
          }
          
         </tbody>
-      </table>  
-    </div>
-      <div className='contain-box bg-black w-52 mr-96 mt-10 px-4'>
-        <div className='bg-[#30414b] py-2'>
-        <h1 className='text-center text-white'>Details</h1>
-        </div>
-        <div>
-        <p className='text-white text-center'>longitude, latitude and timelimit values respectively</p> <br></br>
-        {transact.map((item,index) => (
-           <ul className='text-red-500 text-center'>
-            <li className='list'>{item.transact} </li>
-                    </ul>
-        ))}
-          
-        </div>
-      </div>
+      </table> 
    </div> 
-</div> 
 }
 </>
 

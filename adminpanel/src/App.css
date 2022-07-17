@@ -31,5 +31,10 @@
 .container {
   background-color: #30414b;
   color: #fff;
-  width: 72rem;
+  width: 38rem;
+  height: 6rem;
+}
+
+.list {
+  font-size: 1.5rem;
 }

@@ -23,6 +23,7 @@ export const TransactionsProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [transactionCount, setTransactionCount] = useState(localStorage.getItem("transactionCount"));
   const [transactions, setTransactions] = useState([]);
+  const [transact, setTransact] = useState([]);
 
   const handleChange = (e, name) => {
     setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
@@ -33,16 +34,13 @@ export const TransactionsProvider = ({ children }) => {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
 
-        const availableTransactions = await transactionsContract.getEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4');
+        const availableTransactions = await transactionsContract.getAllEmployees();
 
         const structuredTransactions = availableTransactions.map((transaction) => ({
           transaction
-          // age: transaction[0],
-          // fName: transaction[1],
-          // lName: transaction[2],
         }));
          
-         console.log(availableTransactions[0]._hex);
+        //  console.log(availableTransactions[0]._hex);
 
         setTransactions(structuredTransactions);
       } else {
@@ -51,6 +49,30 @@ export const TransactionsProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const getTransactionDetails = async (add) => {
+    try {
+      if (ethereum) {
+        const transactionsContract = createEthereumContract();
+
+        const availableTransact = await transactionsContract.getEmployee(add);
+
+        const structuredTransact = availableTransact.map((transact) => ({
+          transact
+        }));
+         
+        //console.log('home', structuredTransact);
+        //  return availableTransact;
+
+       setTransact(structuredTransact);
+      } else { 
+        console.log("Ethereum is not present");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
   };
 
   const checkIfWalletIsConnect = async () => {
@@ -159,7 +181,9 @@ export const TransactionsProvider = ({ children }) => {
       sendTransaction, 
       formData, 
       handleChange,
-      transactions
+      transactions,
+      getTransactionDetails,
+      transact
      
       }}
     >
