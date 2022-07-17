@@ -15,7 +15,7 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
     />
   );
 export default function App() {
-    const [value, onChange] = useState(['10:00', '11:00']);
+    const [val, onChange] = useState(['10:00', '11:00']);
     // console.log('data', value);
     const [show, setShow ] =  useState(true);
     const { connectWallet, currentAccount, sendTransaction, formData, handleChange, transactions, transact, getTransactionDetails } = useContext(TransactionContext);
@@ -72,10 +72,10 @@ export default function App() {
 
   
    { show ?
-    <div className='text-center justify-center flex -mt-14 pl-0 pr-0'>
+    <div className='text-center justify-center flex -mt-12 pl-0 pr-0'>
     <div className='box text-center flex justify-center h-96 w-96 shadow-xl rounded-lg bg-gray-200'>
         <div>
-        <h1 className='text-4xl mt-5 mb-9'>Device Registration</h1> 
+        <h1 className='text-4xl -mt-16  mb-9'>Device Registration</h1> 
         <div className='box2 mt-42 bg-gray-100'>
         <div className="field">
             <Input placeholder="Employee Public Address To" name="address" type="text" className='' handleChange={handleChange} />
@@ -86,11 +86,13 @@ export default function App() {
         <div className='field'>
             <Input type="text" name="latitude" placeholder='Enter Geographical Boundary latitude' className='' handleChange={handleChange} />
         </div>
-        <div className=''>
-            <Input type="text" name="timelimit" placeholder='Release Time' className='' id="" handleChange={handleChange} />
-         {/* <lable>Time Limit</lable> */}
+        <div className='field'>
+            <Input type="text" name="timelimit" placeholder='Release Time' className='' value={val} id="" handleChange={handleChange} />
         </div>
-   
+        <div>
+        <TimeRangePicker onChange={onChange} value={val} />
+        </div>
+
         </div>
         <div className='btn mt-6'>
         <button onClick={handleSubmit} className='py-3 px-7 w-52 text-2xl bg-[#30414b] rounded text-white cursor-pointer'>Add</button>
@@ -109,8 +111,6 @@ export default function App() {
             <th>ID</th>
             <th> Employee Public Key </th>
             <th> Detail </th>
-             {/*<th> Geographical-Boundary </th>
-            <th> Time-Limit </th> */}
           </tr>
         </thead>
         <tbody className='bg-gray-100'>
@@ -136,9 +136,8 @@ export default function App() {
         {transact.map((item,index) => (
            <ul className='text-red-500 text-center'>
             <li className='list'>{item.transact} </li>
-                    </ul>
+          </ul>
         ))}
-          
         </div>
       </div>
    </div> 
