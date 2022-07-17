@@ -1,4 +1,4 @@
-// const { expect } = require('chai');
+const { expect } = require('chai');
 
 var chai = require('chai');
 // const BN = require('bn.js');
@@ -18,9 +18,9 @@ describe('Employer Unit Test', function () {
       await Employer.deployed();
     });
 
-    beforeEach(async function () {
-        await Employer.setEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', '34.09', '98.43', '3:30');
-    });
+    // beforeEach(async function () {
+    //     await Employer.setEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', '34.09', '98.43', '3:30');
+    // });
 
     // it('Initial value is set to 0', async function () {
     //     expect((await Employer.getNumber()).toString()).to.equal('0');
