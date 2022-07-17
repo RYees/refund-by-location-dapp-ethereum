@@ -18,7 +18,7 @@ const createEthereumContract = () => {
 };
 
 export const TransactionsProvider = ({ children }) => {
-  const [formData, setformData] = useState({ address:"", age: "", fName: "", lName: "" });
+  const [formData, setformData] = useState({ address:"", longitude: "", latitude: "", timelimit: "" });
   const [currentAccount, setCurrentAccount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [transactionCount, setTransactionCount] = useState(localStorage.getItem("transactionCount"));
@@ -33,7 +33,7 @@ export const TransactionsProvider = ({ children }) => {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
 
-        const availableTransactions = await transactionsContract.getInstructor('0x90F79bf6EB2c4f870365E785982E1f101E93b906');
+        const availableTransactions = await transactionsContract.getEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4');
 
         const structuredTransactions = availableTransactions.map((transaction) => ({
           transaction
@@ -75,7 +75,7 @@ export const TransactionsProvider = ({ children }) => {
     try {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
-        const currentTransactionCount = await transactionsContract.countInstructors();
+        const currentTransactionCount = await transactionsContract.countEmployees();
 
         window.localStorage.setItem("transactionCount", currentTransactionCount);
       }
@@ -108,7 +108,7 @@ export const TransactionsProvider = ({ children }) => {
       // createEthereumContract();
     
       if (ethereum) {
-        const { address, age, fName, lName } = formData;
+        const { address, longitude, latitude, timelimit } = formData;
         const transactionsContract = createEthereumContract();
         // const parsedAmount = ethers.utils.parseEther(amount);
 
@@ -123,7 +123,7 @@ export const TransactionsProvider = ({ children }) => {
         //   }],
         // });
 //console.log(transactionsContract)
-        const transactionHash = await transactionsContract.setInstructor(address,age, fName, lName);
+        const transactionHash = await transactionsContract.setEmployee(address, longitude, latitude, timelimit);
 
         setIsLoading(true);
         console.log(`Loading - ${transactionHash.hash}`);
@@ -131,7 +131,7 @@ export const TransactionsProvider = ({ children }) => {
         console.log(`Success - ${transactionHash.hash}`);
         setIsLoading(false);
 
-        const transactionsCount = await transactionsContract.countInstructors();
+        const transactionsCount = await transactionsContract.countEmployees();
 
         setTransactionCount(transactionsCount.toNumber());
         window.location.reload();
@@ -167,12 +167,3 @@ export const TransactionsProvider = ({ children }) => {
     </TransactionContext.Provider>
   );
 }
-
-// transactionCount,
-// connectWallet,
-// transactions,
-// currentAccount,
-// isLoading,
-// sendTransaction,
-// handleChange,
-// formData

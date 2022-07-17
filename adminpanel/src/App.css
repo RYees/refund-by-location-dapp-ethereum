@@ -7,8 +7,12 @@
 }
 
 .field {
-  background-color: rgb(255, 255, 255);
+  background-color: #30414b;
   margin-bottom: 1em;
+}
+.field:hover {
+  filter: brightness(120%);
+  transition: 0.4s;
 }
 
 .box2 {

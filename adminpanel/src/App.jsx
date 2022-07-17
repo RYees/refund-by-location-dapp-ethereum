@@ -16,16 +16,18 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
   );
 export default function App() {
     const [value, onChange] = useState(['10:00', '11:00']);
+    console.log('data', value);
     const [show, setShow ] =  useState(true);
     const { connectWallet, currentAccount, sendTransaction, formData, handleChange, transactions } = useContext(TransactionContext);
-    console.log('late800');
+    // console.log('late800');
     console.log(transactions);
     const handleSubmit = (e) => {
-      const { address, age, fName, lName } = formData;
-  
+      // const timelimit = value;
+      const { address, longitude, latitude, timelimit } = formData;
+      // console.log('daata',formData);
       e.preventDefault();
   
-      if (!address || !age || !fName || !lName) return;
+      if (!address || !longitude || !latitude || !timelimit) return;
   
       sendTransaction();
     };
@@ -69,21 +71,21 @@ export default function App() {
     <div className='box text-center flex justify-center h-96 w-96 shadow-xl rounded-lg bg-gray-200'>
         <div>
         <h1 className='text-4xl mt-5 mb-9'>Device Registration</h1> 
-        <div className='box2 mt-42'>
+        <div className='box2 mt-42 bg-gray-100'>
         <div className="field">
             <Input placeholder="Employee Public Address To" name="address" type="text" className='' handleChange={handleChange} />
         </div>
         <div className='field'>
-            <Input type="text" name="age" placeholder='Enter Geographical Boundary' className='' handleChange={handleChange} />
+            <Input type="text" name="longitude" placeholder='Enter Geographical Boundary longitude' className='' handleChange={handleChange} />
+        </div>
+        <div className='field'>
+            <Input type="text" name="latitude" placeholder='Enter Geographical Boundary latitude' className='' handleChange={handleChange} />
         </div>
         <div className=''>
-            {/* <Input type="text" name="fName" placeholder='Release Time' className='' id="" handleChange={handleChange} /> */}
-         <lable>Time Limit</lable>
+            <Input type="text" name="timelimit" placeholder='Release Time' className='' id="" handleChange={handleChange} />
+         {/* <lable>Time Limit</lable> */}
         </div>
-        <div className=''>
-            {/* <Input type="text" name="lName" placeholder='enter lname' className='' id="" handleChange={handleChange} /> */}
-            <TimeRangePicker className="h-10 w-96" onChange={onChange} value={value} />
-        </div>
+   
         </div>
         <div className='btn mt-6'>
         <button onClick={handleSubmit} className='py-3 px-7 w-52 text-2xl bg-[#30414b] rounded text-white cursor-pointer'>Add</button>
