@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { TransactionContext } from './context/TransactionContext'
+import { TransactionContext } from './context/TransactionContext';
 import TimeRangePicker from '@wojtekmaj/react-timerange-picker';
 import { shortenAddress } from "./Shortadd";
 
@@ -52,7 +52,7 @@ export default function App() {
  
     <div className='flex justify-between mb-4'>
     <div>
-     {!currentAccount && ( <button
+     <button
               type="button"
               onClick={connectWallet}
               className="flex flex-row justify-center items-center my-5 bg-[#30414b] ml-4 p-3 rounded-full cursor-pointer"
@@ -62,7 +62,7 @@ export default function App() {
                 Connect Wallet
               </p>
             </button>
-     )}
+   
      </div>
 
      <div className='mr-5 cursor-pointer z-10 hover:translate-y-1 hover:rounded hover:bg-[#30414b] px-4 py-4 mt-1 h-5 hover:text-white'>
