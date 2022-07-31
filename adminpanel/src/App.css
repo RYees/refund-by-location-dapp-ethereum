@@ -38,3 +38,31 @@
 .list {
   font-size: 1.5rem;
 }
+
+.mobile {
+  height: 36rem;
+  width: 23rem;
+}
+
+.mobile-content {
+  height: 100%;
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.image img{
+  height: 100%;
+}
+
+.content {
+  position: absolute;
+  background-color: #22303785;
+  display: flex;
+  justify-content: center;
+  top: 3rem;
+  height: 36rem;
+  width: 22rem;
+}
