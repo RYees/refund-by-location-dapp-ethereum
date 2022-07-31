@@ -33,14 +33,14 @@ contract Employer {
         return employeeAccts.length;
     }
 
-    // function geoloc(address _address, string memory _longitude, string memory _latitude) public view returns(string){
-    //    if (
-    //     (keccak256(abi.encodePacked(employees[_address].longitude)) == keccak256(abi.encodePacked(_longitude))) && (keccak256(abi.encodePacked(employees[_address].latitude)) == keccak256(abi.encodePacked(_latitude))) ){
-    //          return 'correct';
-    //      } else {
-    //          return 'incorrect';
-    //      }
-    // }
+    function geoloc(address _address, string memory _longitude, string memory _latitude) public view returns(string){
+       if (
+        (keccak256(abi.encodePacked(employees[_address].longitude)) == keccak256(abi.encodePacked(_longitude))) && (keccak256(abi.encodePacked(employees[_address].latitude)) == keccak256(abi.encodePacked(_latitude))) ){
+             return 'correct';
+         } else {
+             return 'incorrect';
+         }
+    }
     
     function checkPlayerExists(address player) public constant returns(bool){
       for(uint256 i = 0; i < employeeAccts.length; i++){
