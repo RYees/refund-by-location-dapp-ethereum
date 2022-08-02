@@ -13,17 +13,18 @@ const createEthereumContract = () => {
   const transactionsContract = new ethers.Contract(contractAddress, contractABI, signer);
 
   
-  // console.log(transactionsContract.getInstructors);
+  //console.log('types',transactionsContract);
   return transactionsContract;
 };
 
 export const TransactionsProvider = ({ children }) => {
-  const [formData, setformData] = useState({ address:"", longitude: "", latitude: "", timelimit: "" });
+  const [formData, setformData] = useState({ address:"", empName: "", long: "", lat: "", requiredDistance: "", startHour: "", endHour: "" });
   const [currentAccount, setCurrentAccount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [transactionCount, setTransactionCount] = useState(localStorage.getItem("transactionCount"));
   const [transactions, setTransactions] = useState([]);
   const [transact, setTransact] = useState([]);
+  const [data, setContractdata] = useState([]);
 
   const handleChange = (e, name) => {
     setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
@@ -40,7 +41,7 @@ export const TransactionsProvider = ({ children }) => {
           transaction
         }));
          
-        //  console.log(availableTransactions[0]._hex);
+        // console.log('accounts',availableTransactions[0]._hex);
 
         setTransactions(structuredTransactions);
       } else {
@@ -62,10 +63,36 @@ export const TransactionsProvider = ({ children }) => {
           transact
         }));
          
-        //console.log('home', structuredTransact);
+        // console.log('home', structuredTransact);
         //  return availableTransact;
 
        setTransact(structuredTransact);
+      } else { 
+        console.log("Ethereum is not present");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+  };
+
+
+  const setContract = async (add, distance, fetchedHour) => {
+    try {
+      if (ethereum) {
+       // console.log(add, distance, fetchedHour);
+        const transactionsContract = createEthereumContract();
+
+        const availableContractdata = await transactionsContract.setContract(add, distance, fetchedHour);
+
+        const structuredTransact = availableContractdata.map((data) => ({
+          data
+        }));
+         
+        // console.log('home', structuredTransact);
+        //  return availableTransact;
+
+       setContractdata(structuredTransact);
       } else { 
         console.log("Ethereum is not present");
       }
@@ -80,7 +107,7 @@ export const TransactionsProvider = ({ children }) => {
       if (!ethereum) return alert("Please install MetaMask.");
 
       const accounts = await ethereum.request({ method: "eth_accounts" });
-      console.log(accounts);
+      // console.log(accounts);
       if (accounts.length) {
         setCurrentAccount(accounts[0]);
 
@@ -130,7 +157,7 @@ export const TransactionsProvider = ({ children }) => {
       // createEthereumContract();
     
       if (ethereum) {
-        const { address, longitude, latitude, timelimit } = formData;
+        const { address, empName, long, lat, requiredDistance, startHour, endHour} = formData;
         const transactionsContract = createEthereumContract();
         // const parsedAmount = ethers.utils.parseEther(amount);
 
@@ -145,7 +172,7 @@ export const TransactionsProvider = ({ children }) => {
         //   }],
         // });
 //console.log(transactionsContract)
-        const transactionHash = await transactionsContract.setEmployee(address, longitude, latitude, timelimit);
+        const transactionHash = await transactionsContract.setEmployee(address, empName, long, lat, requiredDistance, startHour, endHour);
 
         setIsLoading(true);
         console.log(`Loading - ${transactionHash.hash}`);
@@ -167,6 +194,35 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
+  // const sendLocation = async () => {
+  //   try {
+   
+  //     if (ethereum) {
+  //       const { address, distance,fetchedHour} = sendData;
+  //       const transactionsContract = createEthereumContract();
+   
+  //       const transactionHash = await transactionsContract.setContract(address, empName, long, lat, requiredDistance, startHour, endHour);
+
+  //       setIsLoading(true);
+  //       console.log(`Loading - ${transactionHash.hash}`);
+  //       await transactionHash.wait();
+  //       console.log(`Success - ${transactionHash.hash}`);
+  //       setIsLoading(false);
+
+  //       const transactionsCount = await transactionsContract.countEmployees();
+
+  //       setTransactionCount(transactionsCount.toNumber());
+  //       window.location.reload();
+  //     } else {
+  //       console.log("No ethereum object now");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+
+  //     throw new Error("No ethereum object");
+  //   }
+  // };
+
   useEffect(() => {
     checkIfWalletIsConnect();
     checkIfTransactionsExists();
@@ -183,7 +239,9 @@ export const TransactionsProvider = ({ children }) => {
       handleChange,
       transactions,
       getTransactionDetails,
-      transact
+      transact,
+      setContract,
+      data
      
       }}
     >

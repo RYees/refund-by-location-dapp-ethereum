@@ -7,7 +7,8 @@
 }
 
 .field {
-  background-color: #30414b;
+  /* background-color: #30414b; */
+  background-color: #ffb83ef0;
   margin-bottom: 1em;
 }
 .field:hover {
@@ -18,10 +19,10 @@
 .box2 {
   margin-top: -0rem;
   width: 150%;
-  margin-left: -5rem;
+  margin-left: 3rem;
   border: 2px solid #30414b;
   padding: 32px 12px 32px 12px;
-  box-shadow: 5px 5px #04d1ff;
+  /* box-shadow: 5px 5px #04d1ff; */
 }
 
 .btn:hover {
@@ -33,6 +34,11 @@
   color: #fff;
   width: 38rem;
   height: 6rem;
+}
+
+.field ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(255, 255, 255);
+  opacity: 1; /* Firefox */
 }
 
 .list {
@@ -62,7 +68,11 @@
   background-color: #22303785;
   display: flex;
   justify-content: center;
-  top: 3rem;
-  height: 36rem;
+  top: 2.4rem;
+  height: 35.5rem;
   width: 22rem;
+}
+
+.boxin {
+  width: 50rem;
 }
