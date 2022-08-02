@@ -120,7 +120,7 @@ export default function Admin() {
     </div>
 </div>
 :
-<div className='bg-gray-200 h-screen'>
+<div className='h-screen'>
  <h1 className='text-4xl ml-5'> Device Information </h1>
 <div className='flex ml-24 gap-4'>
 <div className='container ml-10 mt-10'>
@@ -138,7 +138,7 @@ export default function Admin() {
             <tr key={index}>
               <td>{index}</td>
               <td>{item.transaction}</td>              
-              <td><button onClick={e => handSubmit(index,e)} className='coursor-ponter p-2 rounded hover:brightness-110 text-white bg-[#304b41]'>Info</button></td>
+              <td><button onClick={e => handSubmit(index,e)} className='coursor-ponter p-2 rounded hover:brightness-110 text-white bg-[#000]'>Info</button></td>
             </tr>
          ))
          }
@@ -146,12 +146,12 @@ export default function Admin() {
         </tbody>
       </table>  
     </div>
-      <div className='contain-box bg-black w-52 mr-96 mt-10 px-4'>
-        <div className='bg-[#30414b] py-2'>
+      <div className='contain-box bg-white w-52 mr-96 mt-10 px-4'>
+        <div className='bg-[#a76900] py-2'>
         <h1 className='text-center text-white'>Details</h1>
         </div>
         <div>
-        <p className='text-white text-center'>values respectively</p> <br></br>
+        <p className='text-black mt-1 text-center'>values respectively</p> <br></br>
         {transact.map((item) => (
            <ul className='text-red-500 text-center'>
             <li className='list'>{item['transact']} </li>
