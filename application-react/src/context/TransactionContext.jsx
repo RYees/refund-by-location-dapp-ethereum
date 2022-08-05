@@ -11,7 +11,6 @@ const createEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
   const transactionsContract = new ethers.Contract(contractAddress, contractABI, signer);
-
   
   //console.log('types',transactionsContract);
   return transactionsContract;
@@ -25,6 +24,7 @@ export const TransactionsProvider = ({ children }) => {
   const [transactions, setTransactions] = useState([]);
   const [transact, setTransact] = useState([]);
   const [data, setContractdata] = useState([]);
+  const [balance, setBalance] = useState([]);
 
   const handleChange = (e, name) => {
     setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
@@ -77,22 +77,23 @@ export const TransactionsProvider = ({ children }) => {
   };
 
 
-  const setContract = async (add, distance, fetchedHour) => {
+  const contractCondition = async (add, distance, fetchedHour) => {
+    // (contractCondition(address payable _to, address _address, string memory distance, string memory fetchedHour))
     try {
       if (ethereum) {
        // console.log(add, distance, fetchedHour);
         const transactionsContract = createEthereumContract();
 
-        const availableContractdata = await transactionsContract.setContract(add, distance, fetchedHour);
+        const availableContractdata = await transactionsContract.contractCondition(add, distance, fetchedHour);
 
-        const structuredTransact = availableContractdata.map((data) => ({
-          data
-        }));
+        // const structuredTransact = availableContractdata.map((data) => ({
+        //   data
+        // }));
          
-        // console.log('home', structuredTransact);
+         console.log('home',  availableContractdata);
         //  return availableTransact;
 
-       setContractdata(structuredTransact);
+       //setContractdata(structuredTransact);
       } else { 
         console.log("Ethereum is not present");
       }
@@ -105,7 +106,7 @@ export const TransactionsProvider = ({ children }) => {
  const sendTransact = async () => {
   try {
     if (ethereum) {
-      //const { addressTo, amount, keyword, message } = formData;
+      const { addressTo, amount, keyword, message } = formData;
       const transactionsContract = createEthereumContract();
       const parsedAmount = ethers.utils.parseEther(amount);
 
@@ -119,7 +120,7 @@ export const TransactionsProvider = ({ children }) => {
         }],
       });
 
-     // const transactionHash = await transactionsContract.addToBlockchain(addressTo, parsedAmount, message, keyword);
+      const transactionHash = await transactionsContract.addToBlockchain(addressTo, parsedAmount, message, keyword);
 
       setIsLoading(true);
       console.log(`Loading - ${transactionHash.hash}`);
@@ -191,27 +192,11 @@ export const TransactionsProvider = ({ children }) => {
   };
 
   const sendTransaction = async () => {
-    try {
-      // if(!ethereum) return alert('please install metamask');
-      // const { age, fName, lName } = formData;
-      // createEthereumContract();
-    
+    try {  
       if (ethereum) {
         const { address, empName, long, lat, requiredDistance, startHour, endHour} = formData;
         const transactionsContract = createEthereumContract();
-        // const parsedAmount = ethers.utils.parseEther(amount);
-
-        // await ethereum.request({
-        //   method: "eth_sendTransaction",
-        //   params: [{
-        //     // from: currentAccount,
-        //     from: addressTo
-        //     // to: ,
-        //     // gas: "0x5208",
-        //     // value: parsedAmount._hex,
-        //   }],
-        // });
-//console.log(transactionsContract)
+    
         const transactionHash = await transactionsContract.setEmployee(address, empName, long, lat, requiredDistance, startHour, endHour);
 
         setIsLoading(true);
@@ -234,34 +219,130 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
-  // const sendLocation = async () => {
-  //   try {
+  const sendPay = async () => {
+      try {
+      if (ethereum) {
+      const transactionsContract = createEthereumContract();
+    //  let owedAmount = await transactionsContract.getOwedAmount();
+    //   owedAmount=owedAmount.toString()
+       let owedAmount = '1000000000';
+
+      await ethereum.request({
+        method: "eth_sendTransaction",
+        params: [{
+          from: currentAccount,
+          to: contractAddress,
+          gas: "0x5208",
+          value: owedAmount,
+        }],
+      });
+
+//      const transactionHash = await transactionsContract.addToBlockchain(addressTo, parsedAmount, message, keyword);
+
+      let transactioned=await transactionsContract.deposit({value:owedAmount})
+      let transactione= await transactionsContract.getBalance();
+   //   const structuredTransact = transactioned.map((transact1) => ({
+     //   transact1
+     // }));
+       
+      await transactioned.wait();
+      console.log('jada',structuredTransact);
+        }
+      } catch (error) {
+        console.log(error);
+  
+        throw new Error("No ethereum object");
+      }
+    };
+
+    const transfer = async () => {
+      try {
+      if (ethereum) {
+      const transactionsContract = createEthereumContract();
+     // let owedAmount = await transactionsContract.getOwedAmount();
+      //owedAmount=owedAmount.toString()
+      // let owedAmount = '1000000';
+      let addressi = '0x030a2336256E22Ba0c99747aeeD5bb1fb16De27f';
+      let amounti = 1000000000000000;
+      // await ethereum.request({
+      //   method: "eth_sendTransaction",
+      //   params: [{
+      //     from: currentAccount,
+      //     to: contractAddress,
+      //     gas: "0x5208",
+      //     value: owedAmount,
+      //   }],
+      // });
+
+//      const transactionHash = await transactionsContract.addToBlockchain(addressTo, parsedAmount, message, keyword);
+
+      let transactioned=await transactionsContract.transfer(addressi, amounti)
+      //let transactione= await transactionsContract.getBalance();
+   //   const structuredTransact = transactioned.map((transact1) => ({
+     //   transact1
+     // }));
+       
+      await transactioned.wait();
+      console.log('jada',structuredTransact);
+        }
+      } catch (error) {
+        console.log(error);
+  
+        throw new Error("No ethereum object");
+      }
+    };
+  
+    const getBalance = async () => {
+      try {
+        if (ethereum) {
+          const transactionsContract = createEthereumContract();
+  
+          const availableTransactbalance = await transactionsContract.getBalance();
+  
+          // const structuredTransact = availableTransact.map((transact) => ({
+          //   transact
+          // }));
+          let num = parseInt(Number(availableTransactbalance['_hex']));
+          // BigNumber {_hex: '0x038d7ea4d5c240', _isBigNumber: true}
+          // _hex: "0x038d7ea4d5c240"
+          // _isBigNumber: true
+           getResults('0x8F449854A5d6aD8958D43E0266a9399E208A2cc5');
+           console.log('home', num);
+          //  return availableTransact;
+  
+        //  setTransact(structuredTransact);
+        } else { 
+          console.log("Ethereum is not present");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+  
+    };
+  
    
-  //     if (ethereum) {
-  //       const { address, distance,fetchedHour} = sendData;
-  //       const transactionsContract = createEthereumContract();
-   
-  //       const transactionHash = await transactionsContract.setContract(address, empName, long, lat, requiredDistance, startHour, endHour);
-
-  //       setIsLoading(true);
-  //       console.log(`Loading - ${transactionHash.hash}`);
-  //       await transactionHash.wait();
-  //       console.log(`Success - ${transactionHash.hash}`);
-  //       setIsLoading(false);
-
-  //       const transactionsCount = await transactionsContract.countEmployees();
-
-  //       setTransactionCount(transactionsCount.toNumber());
-  //       window.location.reload();
-  //     } else {
-  //       console.log("No ethereum object now");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-
-  //     throw new Error("No ethereum object");
-  //   }
-  // };
+    const getResults = async (add) => {
+      try {
+        if (ethereum) {
+          const transactionsContract = createEthereumContract();
+  
+          const availableTransactres = await transactionsContract.getResults(add);
+  
+          // let num = parseInt(Number(availableTransactbalance['_hex']));
+                  
+           console.log('get', availableTransactres.accept);
+           console.log('getiin', availableTransactres.decline);
+      ;
+  
+        //  setTransact(structuredTransact);
+        } else { 
+          console.log("Ethereum is not present");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+  
+    };
 
   useEffect(() => {
     checkIfWalletIsConnect();
@@ -280,8 +361,12 @@ export const TransactionsProvider = ({ children }) => {
       transactions,
       getTransactionDetails,
       transact,
-      setContract,
-      data
+      data,
+      sendPay,
+      contractCondition,
+      getBalance,
+      transfer,
+      getResults
      
       }}
     >

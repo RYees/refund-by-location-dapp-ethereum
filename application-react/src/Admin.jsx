@@ -18,7 +18,7 @@ export default function Admin() {
     const [val, onChange] = useState(['10:00', '11:00']);
     // console.log('data', value);
     const [show, setShow ] =  useState(true);
-    const { connectWallet, currentAccount, sendTransaction, formData, handleChange, transactions, transact, getTransactionDetails } = useContext(TransactionContext);
+    const { connectWallet, currentAccount, sendTransaction, formData, sendPay, transfer, getBalance, handleChange, transactions, transact, getTransactionDetails } = useContext(TransactionContext);
     console.log('scre',currentAccount);
     // console.log('bye',transact);
    
@@ -73,7 +73,12 @@ export default function Admin() {
      </div>
 
      <div className='mr-5 cursor-pointer z-10 hover:translate-y-1 px-4 py-4 mt-1 h-5 hover:text-white'>
-        <ul><li className='-mt-3 bg-[#a76900] p-3 rounded text-white hover:brightness-150' onClick={changePage}>View</li></ul>
+        <ul>
+        <li className='-mt-3 bg-[#a76900] p-3 rounded text-white hover:brightness-150' onClick={changePage}>View</li>
+        <li className='-mt-3 bg-[#a76900] p-3 rounded text-white hover:brightness-150' onClick={sendPay}>SendToContract</li>
+        <li className='-mt-3 bg-[#a76900] p-3 rounded text-white hover:brightness-150' onClick={transfer}>TransferFee</li>
+        <li className='-mt-3 bg-[#a76900] p-3 rounded text-white hover:brightness-150' onClick={getBalance}>Balance</li>
+        </ul>
      </div>     
   </div>
 

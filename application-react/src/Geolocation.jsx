@@ -5,8 +5,8 @@ import { TransactionContext } from './context/TransactionContext';
 import './App.css'
 
 const Geolocation = () => {
-    const {connectWallet,transact,data, setContract, currentAccount, getTransactionDetails} = useContext(TransactionContext);
-   // console.log('elev',currentAccount);
+    const {connectWallet,transact,data, getResults, currentAccount, getTransactionDetails, contractCondition, sendPay, getBalance, transfer} = useContext(TransactionContext);
+    //console.log('elev',getBalance);
     const [dateEpoch, setEpoch] = useState();
     const [distance, setDistance] = useState();
     const [hour, setHour] = useState();
@@ -51,12 +51,12 @@ const Geolocation = () => {
          let lat1 = transact[2]['transact'];
          let lat2 = coords.latitude;
          let lon2 = coords.longitude;
-         sendLocation(lat1, lat2, lon1, lon2);
-        //  console.log(lon1, lat1, 'and', hour)
+         sendLocation();
+         console.log(lat1, lat2, lon1, lon2)
     }
 
     const sendLocation = (lat1, lat2, lon1, lon2) =>{
-        
+    //const sendLocation = () =>{  
         lon1 = lon1 * Math.PI / 180;
         lon2 = lon2 * Math.PI / 180;
         lat1 = lat1 * Math.PI / 180;
@@ -74,8 +74,9 @@ const Geolocation = () => {
         let res = c * r;
         setDistance(res);
         //return(c * r);
-        setContract('0x030a2336256e22ba0c99747aeed5bb1fb16de27f',1879.6527986701333,2);
-        console.log('distance',distance, hour, currentAccount);       
+        //contractCondition('0x030a2336256e22ba0c99747aeed5bb1fb16de27f',18,4);
+        console.log('distance',distance, hour, currentAccount);    
+        //contractCondition(currentAccount,distance, hour);   
         
     }
 
@@ -134,9 +135,29 @@ const Geolocation = () => {
             <div className="text-center">
                <button onClick={callTransaction} className="bg-black hover:bg-gray-300 hover:scale-x-110 transition-all p-2 py-3 rounded hover:brightness-150 text-2xl">Send Location</button>
             </div>
-            <div className="mt-4">
-                <p>Out of Compliance, your contract is broken {data}</p>
+            {/* <div className="text-center">
+               <button onClick={sendPay} className="bg-black hover:bg-gray-300 hover:scale-x-110 transition-all p-2 py-3 rounded hover:brightness-150 text-2xl">Send Pay</button>
             </div>
+            <div className="text-center">
+               <button onClick={transfer} className="bg-black hover:bg-gray-300 hover:scale-x-110 transition-all p-2 py-3 rounded hover:brightness-150 text-2xl">transfer</button>
+            </div>
+            <div className="text-center">
+               <button onClick={getBalance} className="bg-black hover:bg-gray-300 hover:scale-x-110 transition-all p-2 py-3 rounded hover:brightness-150 text-2xl">balance</button>
+            </div>
+            <div className="text-center">
+               <button onClick={getResults} className="bg-black hover:bg-gray-300 hover:scale-x-110 transition-all p-2 py-3 rounded hover:brightness-150 text-2xl">balance</button>
+            </div> */}
+
+            {/* (2) ['', '', accept: '', decline: '']
+                    0: ""
+                    1: ""
+                    accept: ""
+                    decline: ""
+                    length: 2 */}
+
+            {/* <div className="mt-4">
+                <p>Out of Compliance, your contract is broken {data}</p>
+            </div> */}
             </div>
           </div>
         </div>
