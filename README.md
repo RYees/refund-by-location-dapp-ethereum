@@ -30,11 +30,20 @@ Steps to do the project:
    * Doing it with java programming
 * Connecting the frontend and smart contract backend
 
+## Implementation
+* Frontend is done with reactjs
+* Backend is done with solidity for the smart contract and hardhat frame work is used
 
 ## Installation
 To clone the repository use the below link:
 ---
     https://github.com/RYees/dapps-gps.git
+    
+    
+To run the repository first run the following:
+---
+    npm install
+    npm run dev
     
 
 
