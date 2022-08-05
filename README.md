@@ -26,9 +26,9 @@ Steps to do the project:
 * Developing smart contract. 
    * With solidity programming
    * Testing and deploying the contract on ethereum blockchain
-* Building frontend mobile dApp
+* Building frontend web dApp
    * Designing the user interface
-   * Doing it with java programming
+   * Doing it with Reactjs
 * Connecting the frontend and smart contract backend
 
 ## Implementation
