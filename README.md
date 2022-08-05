@@ -38,7 +38,7 @@ Steps to do the project:
 ## Installation
 To clone the repository use the below link:
 ---
-    https://github.com/RYees/dapps-gps.git
+    https://github.com/RYees/refund-by-location-dapp-ethereum.git
     
     
 To run the repository first run the following:
