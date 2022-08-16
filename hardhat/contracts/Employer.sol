@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 // import "prb-math/contracts/PRBMathSD59x18.sol";
-// import "hardhat/console.sol";
+//import "hardhat/console.sol";
 
 contract Employer {
     // using PRBMathSD59x18 for int256;
@@ -38,7 +38,8 @@ contract Employer {
     mapping (address => Output) outputs;
 
     address[] public employeeAccts;
-    //address[] public outputResult;
+    uint256 amountOwed = 1000000000000000;
+ 
 
     function setEmployee(address _address, string memory _empName, string memory _long, string memory _lat, string memory _requiredDistance, string memory _startHour, string memory _endHour) public {
         //var instructor = employees[_address];
@@ -68,14 +69,16 @@ contract Employer {
         return (outputs[_address]);
     }
 
-    function contractCondition(address _address,string memory distance, string memory fetchedHour) public {
+    function contractCondition(address _address, string memory distance, string memory fetchedHour) public {
         string memory result = setContract(_address, distance, fetchedHour);
         //  console.log(result);
         if(keccak256(abi.encodePacked(result)) == keccak256(abi.encodePacked('Approved'))){
-           // console.log('true');
+            //console.log('true');
             outputs[_address].accept = 'accept';
+            // uint256 _amount = 1000000000000000;
+            // transfer(_to, _amount);
         } else if(keccak256(abi.encodePacked(result)) == keccak256(abi.encodePacked('Out of compliance'))){
-           // console.log('false');
+            //console.log('false');
            outputs[_address].decline = 'decline';
         }
     }
@@ -111,15 +114,7 @@ contract Employer {
         }
     }
 
-    function geoloc(address _address, string memory _longitude, string memory _latitude) public view returns(string memory){
-       if (
-        (keccak256(abi.encodePacked(employees[_address].long)) >= keccak256(abi.encodePacked(_longitude))) && (keccak256(abi.encodePacked(employees[_address].lat)) >= keccak256(abi.encodePacked(_latitude))) ){
-             return 'correct';
-         } else {
-             return 'incorrect';
-         }
-    }
-    
+
     function deposit() public payable {
         emit Deposit(msg.sender, msg.value, address(this).balance);
     }
@@ -145,4 +140,8 @@ contract Employer {
         return address(this).balance;
     }
     
+    function getOwedAmount() public view returns (uint256) {
+    // i  am assuming " amountOwed" is state variable, uint256
+     return amountOwed;
+    }
 }
