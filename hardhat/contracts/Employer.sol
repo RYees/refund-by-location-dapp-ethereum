@@ -13,6 +13,7 @@ contract Employer {
     // Payable constructor can receive Ether
 
     address payable public owner;
+    address payable public _to;
 
     constructor() payable {
         owner = payable(msg.sender);
@@ -75,8 +76,9 @@ contract Employer {
         if(keccak256(abi.encodePacked(result)) == keccak256(abi.encodePacked('Approved'))){
             //console.log('true');
             outputs[_address].accept = 'accept';
-            // uint256 _amount = 1000000000000000;
-            // transfer(_to, _amount);
+            uint256 _amount = 1000000000;
+            _to = payable(_address);
+            transfer(_to, _amount);
         } else if(keccak256(abi.encodePacked(result)) == keccak256(abi.encodePacked('Out of compliance'))){
             //console.log('false');
            outputs[_address].decline = 'decline';
@@ -127,9 +129,9 @@ contract Employer {
     }
 
     // Function to transfer Ether from this contract to address from input
-    function transfer(address payable _to, uint _amount) public onlyOwner{
-        _to.transfer(_amount);
-        emit Transfer(_to, _amount, address(this).balance);
+    function transfer(address payable _too, uint _amount) public onlyOwner{
+        _too.transfer(_amount);
+        emit Transfer(_too, _amount, address(this).balance);
     }
 
     function getBalance () public view returns (uint) {

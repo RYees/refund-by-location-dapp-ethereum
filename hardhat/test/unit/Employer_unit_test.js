@@ -30,11 +30,12 @@ describe('Employer Unit Test', function () {
     }); 
     
 
-    it('calling the location contract', async function () {
-      await Employer.contractCondition('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', '10','3');
-    });
+    // it('calling the location contract', async function () {
+    //   await Employer.contractCondition('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', '10','3');
+    // });
 
     it('calling the contract balance', async function () {
-      expect((await Employer. getBalance()).toNumber()).to.equal(0);
+     // expect(await Employer.getBalance()).to.be.within(0);
+      expect((await Employer. getBalance()).toNumber()).to.equal(0); 
     });
   });
