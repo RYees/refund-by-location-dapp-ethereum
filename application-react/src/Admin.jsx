@@ -18,8 +18,9 @@ export default function Admin() {
     const [val, onChange] = useState(['10:00', '11:00']);
     // console.log('data', value);
     const [show, setShow ] =  useState(true);
-    const { connectWallet, currentAccount, sendTransaction, formData, sendPay, transfer, getBalance, handleChange, transactions, transact, getTransactionDetails } = useContext(TransactionContext);
-    console.log('scre',currentAccount);
+    
+    const { connectWallet, currentAccount, sendTransaction, view, formData, sendPay, transfer, getBalance, balance, handleChange, transactions, transact, getTransactionDetails } = useContext(TransactionContext);
+    // console.log('scre',currentAccount);
     // console.log('bye',transact);
    
     const handleSubmit = (e) => {
@@ -33,27 +34,12 @@ export default function Admin() {
       sendTransaction();
     };
     const handSubmit = (index,e) => {
-        // console.log('tundeer',transactions[index].transaction);
-         getTransactionDetails(transactions[index].transaction);
-        
-  }
-  //  const assignTran = (index) => {
-  //   console.log(index);
-  //   let name = transact[0]['transact'];
-  //   console.log(name)
-  //  }
+        getTransactionDetails(transactions[index].transaction);
+    }
     const changePage = () => {
        setShow(!show);
     }
 
-    // const datas = [
-    //   { id: 1, address: "RBAWCKKRQQSP5HVTSSSZSMWZZFKREGYMXIJ6PDERWGVTCSZCHAJZB76JKY", geoboundary: "RBAWCKKRQQSP-AWCKKRQQSP",  timelimit: "10:00-11:00"},
-    //   { id: 2, address: "RBAWCKKRQQSP5HVTSSSZSMWZZFKREGYMXIJ6PDERWGVTCSZCHAJZB76JKY", geoboundary: "RBAWCKKRQQSP-AWCKKRQQSP",  timelimit: "10:00-11:00"},
-    //   { id: 3, address: "RBAWCKKRQQSP5HVTSSSZSMWZZFKREGYMXIJ6PDERWGVTCSZCHAJZB76JKY", geoboundary: "RBAWCKKRQQSP-AWCKKRQQSP",  timelimit: "10:00-11:00"},
-    // ];
-  //  console.log(transact.map((i)=>(
-  //   i
-  //  )));
   return (
     <>
  
@@ -79,6 +65,10 @@ export default function Admin() {
         <li className='-mt-3 bg-[#a76900] p-3 rounded text-white hover:brightness-150' onClick={transfer}>TransferFee</li>
         <li className='-mt-3 bg-[#a76900] p-3 rounded text-white hover:brightness-150' onClick={getBalance}>Balance</li>
         </ul>
+        { view ?
+         <div>{balance} Ethers</div> :
+         <p></p>
+        } 
      </div>     
   </div>
 

@@ -25,6 +25,7 @@ export const TransactionsProvider = ({ children }) => {
   const [transact, setTransact] = useState([]);
   const [data, setContractdata] = useState([]);
   const [balance, setBalance] = useState([]);
+  const [view, setView ] =  useState(false);
 
   const handleChange = (e, name) => {
     setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
@@ -276,15 +277,18 @@ export const TransactionsProvider = ({ children }) => {
         if (ethereum) {
           const transactionsContract = createEthereumContract();  
           const availableTransactbalance = await transactionsContract.getBalance();
-          // let num = parseInt(Number(availableTransactbalance['_hex']));
-          //         getResults('0x8F449854A5d6aD8958D43E0266a9399E208A2cc5');
-           console.log('home', availableTransactbalance);
-           if(availableTransactbalance === 3000000000){
-            console.log('correct')
-           }
-           else {
-            console.log('false')
-           }
+          let val = availableTransactbalance['_hex'];
+          let num = parseInt(val);
+          //  console.log('home', num);
+          //  console.log(availableTransactbalance['_hex']);
+           setBalance(num)
+           setView(!view);
+          //  if(availableTransactbalance === 3000000000){
+          //   console.log('correct')
+          //  }
+          //  else {
+          //   console.log('false')
+          //  }
         } else { 
           console.log("Ethereum is not present");
         }
@@ -340,8 +344,9 @@ export const TransactionsProvider = ({ children }) => {
       contractCondition,
       getBalance,
       transfer,
-      getResults
-     
+      getResults,
+      balance,
+      view
       }}
     >
       {children}

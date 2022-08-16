@@ -73,11 +73,9 @@ const Geolocation = () => {
         let r = 3956; // in kilometer
         let res = c * r;
         setDistance(res);
-        //return(c * r);
         //contractCondition('0x030a2336256e22ba0c99747aeed5bb1fb16de27f',18,4);
-        console.log('distance',distance, hour, currentAccount);    
-        //contractCondition(currentAccount,distance, hour);   
-        
+        //console.log('distance',distance, hour, currentAccount);    
+        contractCondition(currentAccount, distance, hour);  
     }
     const hand = () => {
         contractCondition('0x030a2336256E22Ba0c99747aeeD5bb1fb16De27f','18','4');
