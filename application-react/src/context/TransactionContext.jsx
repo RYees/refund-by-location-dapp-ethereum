@@ -259,32 +259,11 @@ export const TransactionsProvider = ({ children }) => {
       try {
       if (ethereum) {
       const transactionsContract = createEthereumContract();
-     // let owedAmount = await transactionsContract.getOwedAmount();
-      //owedAmount=owedAmount.toString()
-      // let owedAmount = '1000000';
       let addressi = '0x030a2336256E22Ba0c99747aeeD5bb1fb16De27f';
-      let amounti = 1000000000000000;
-      // await ethereum.request({
-      //   method: "eth_sendTransaction",
-      //   params: [{
-      //     from: currentAccount,
-      //     to: contractAddress,
-      //     gas: "0x5208",
-      //     value: owedAmount,
-      //   }],
-      // });
-
-//      const transactionHash = await transactionsContract.addToBlockchain(addressTo, parsedAmount, message, keyword);
-
+      let amounti = 1000000000;
       let transactioned=await transactionsContract.transfer(addressi, amounti)
-      //let transactione= await transactionsContract.getBalance();
-   //   const structuredTransact = transactioned.map((transact1) => ({
-     //   transact1
-     // }));
-       
-      await transactioned.wait();
-      console.log('jada',structuredTransact);
-        }
+      // await transactioned.wait();
+      }
       } catch (error) {
         console.log(error);
   
@@ -295,22 +274,17 @@ export const TransactionsProvider = ({ children }) => {
     const getBalance = async () => {
       try {
         if (ethereum) {
-          const transactionsContract = createEthereumContract();
-  
+          const transactionsContract = createEthereumContract();  
           const availableTransactbalance = await transactionsContract.getBalance();
-  
-          // const structuredTransact = availableTransact.map((transact) => ({
-          //   transact
-          // }));
-          let num = parseInt(Number(availableTransactbalance['_hex']));
-          // BigNumber {_hex: '0x038d7ea4d5c240', _isBigNumber: true}
-          // _hex: "0x038d7ea4d5c240"
-          // _isBigNumber: true
-           getResults('0x8F449854A5d6aD8958D43E0266a9399E208A2cc5');
-           console.log('home', num);
-          //  return availableTransact;
-  
-        //  setTransact(structuredTransact);
+          // let num = parseInt(Number(availableTransactbalance['_hex']));
+          //         getResults('0x8F449854A5d6aD8958D43E0266a9399E208A2cc5');
+           console.log('home', availableTransactbalance);
+           if(availableTransactbalance === 3000000000){
+            console.log('correct')
+           }
+           else {
+            console.log('false')
+           }
         } else { 
           console.log("Ethereum is not present");
         }

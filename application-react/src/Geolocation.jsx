@@ -79,7 +79,9 @@ const Geolocation = () => {
         //contractCondition(currentAccount,distance, hour);   
         
     }
-
+    const hand = () => {
+        contractCondition('0x030a2336256E22Ba0c99747aeeD5bb1fb16De27f','18','4');
+    }
     useEffect(()=>{
         !isGeolocationAvailable ? (
             <div>Your browser does not support Geolocation</div>
@@ -133,7 +135,7 @@ const Geolocation = () => {
                     <div>Getting the location data&hellip; </div>
                 )}
             <div className="text-center">
-               <button onClick={callTransaction} className="bg-black hover:bg-gray-300 hover:scale-x-110 transition-all p-2 py-3 rounded hover:brightness-150 text-2xl">Send Location</button>
+               <button onClick={hand} className="bg-black hover:bg-gray-300 hover:scale-x-110 transition-all p-2 py-3 rounded hover:brightness-150 text-2xl">Send Location</button>
             </div>
             {/* <div className="text-center">
                <button onClick={sendPay} className="bg-black hover:bg-gray-300 hover:scale-x-110 transition-all p-2 py-3 rounded hover:brightness-150 text-2xl">Send Pay</button>
