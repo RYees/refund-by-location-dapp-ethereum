@@ -30,7 +30,7 @@ describe('Employer Unit Test', function () {
     }); 
     
 
-    it('calling the locaation contract', async function () {
+    it('calling the location contract', async function () {
       await Employer.contractCondition('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', '10','3');
       //expect((await Employer.getAllEmplos()).toString()).to.equal('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4');
       //expect((await Employer.getEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4')).toString()).to.equal('34.09', '98.43', '3:30');

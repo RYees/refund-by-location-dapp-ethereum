@@ -120,14 +120,10 @@ contract Employer {
     }
 
     function notPayable() public {}
+    
     modifier onlyOwner() {
         require(msg.sender == owner, "Not owner");
         _;
-    }
-    
-    function withdraw(uint _amount) public onlyOwner {
-        owner.transfer(_amount);
-        emit Withdraw(_amount, address(this).balance);
     }
 
     // Function to transfer Ether from this contract to address from input
