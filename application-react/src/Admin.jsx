@@ -17,8 +17,8 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 export default function Admin() {
     const [val, onChange] = useState(['10:00', '11:00']);
     // console.log('data', value);
-    const [show, setShow ] =  useState(true);
-    
+    const [show, setShow] =  useState(true);
+    // reqDist = 5km;
     const { connectWallet, currentAccount, sendTransaction, view, formData, sendPay, transfer, getBalance, balance, handleChange, transactions, transact, getTransactionDetails } = useContext(TransactionContext);
     // console.log('scre',currentAccount);
     // console.log('bye',transact);

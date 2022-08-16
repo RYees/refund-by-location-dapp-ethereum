@@ -10,13 +10,7 @@ const Geolocation = () => {
     const [dateEpoch, setEpoch] = useState();
     const [distance, setDistance] = useState();
     const [hour, setHour] = useState();
-    const [info, setInfo] = useState();
-
-    // let lat1 = 53.32055555555556;
-    // let lat2 = 53.31861111111111;
-    // let lon1 = -1.7297222222222221;
-    // let lon2 = -1.6997222222222223;
-    
+  
 
     const { timestamp, coords, isGeolocationAvailable, isGeolocationEnabled } =
         useGeolocated({
@@ -70,7 +64,7 @@ const Geolocation = () => {
         * Math.pow(Math.sin(dlon / 2),2);
         
         let c = 2 * Math.asin(Math.sqrt(a));
-        let r = 3956; // in kilometer
+        let r = 3956; // in kilometer 
         let res = c * r;
         setDistance(res);
         //contractCondition('0x030a2336256e22ba0c99747aeed5bb1fb16de27f',18,4);
