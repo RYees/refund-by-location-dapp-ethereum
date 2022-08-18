@@ -23,7 +23,7 @@ export const TransactionsProvider = ({ children }) => {
   const [transactionCount, setTransactionCount] = useState(localStorage.getItem("transactionCount"));
   const [transactions, setTransactions] = useState([]);
   const [transact, setTransact] = useState([]);
-  const [data, setContractdata] = useState([]);
+  const [output, setOutput] = useState([]);
   const [balance, setBalance] = useState([]);
   const [view, setView ] =  useState(false);
 
@@ -64,7 +64,7 @@ export const TransactionsProvider = ({ children }) => {
           transact
         }));
          
-        // console.log('home', structuredTransact);
+        //console.log('leanard', structuredTransact);
         //  return availableTransact;
 
        setTransact(structuredTransact);
@@ -82,19 +82,11 @@ export const TransactionsProvider = ({ children }) => {
     // (contractCondition(address payable _to, address _address, string memory distance, string memory fetchedHour))
     try {
       if (ethereum) {
-       // console.log(add, distance, fetchedHour);
         const transactionsContract = createEthereumContract();
 
         const availableContractdata = await transactionsContract.contractCondition(add, distance, fetchedHour);
+        console.log('home',  availableContractdata.message);
 
-        // const structuredTransact = availableContractdata.map((data) => ({
-        //   data
-        // }));
-         
-         console.log('home',  availableContractdata);
-        //  return availableTransact;
-
-       //setContractdata(structuredTransact);
       } else { 
         console.log("Ethereum is not present");
       }
@@ -312,7 +304,7 @@ export const TransactionsProvider = ({ children }) => {
            console.log('getiin', availableTransactres.decline);
       ;
   
-        //  setTransact(structuredTransact);
+         setOutput(availableTransactres.accept);
         } else { 
           console.log("Ethereum is not present");
         }
@@ -327,7 +319,6 @@ export const TransactionsProvider = ({ children }) => {
     checkIfTransactionsExists();
   }, []);
 
-// export const TransactionsProvider = ({children}) =>{
   return (
     <TransactionContext.Provider
     value={{
@@ -339,14 +330,14 @@ export const TransactionsProvider = ({ children }) => {
       transactions,
       getTransactionDetails,
       transact,
-      data,
       sendPay,
       contractCondition,
       getBalance,
       transfer,
       getResults,
       balance,
-      view
+      view,
+      output
       }}
     >
       {children}

@@ -5,7 +5,7 @@ import { TransactionContext } from './context/TransactionContext';
 import './App.css'
 
 const Geolocation = () => {
-    const {connectWallet,transact,data, getResults, currentAccount, getTransactionDetails, contractCondition, sendPay, getBalance, transfer} = useContext(TransactionContext);
+    const {connectWallet,transact,output, getResults, currentAccount, getTransactionDetails, contractCondition, sendPay, getBalance, transfer} = useContext(TransactionContext);
     //console.log('elev',getBalance);
     const [dateEpoch, setEpoch] = useState();
     const [distance, setDistance] = useState();
@@ -29,24 +29,28 @@ const Geolocation = () => {
         const [hour, minute, second] = time.split(':');
         // console.log(date);
         // console.log(time);
-        // console.log(hour);
-        setHour(hour);
+        let hourtime = hour.toString()
+        console.log('houring', hourtime);
+
+        setHour(hourtime);
         setEpoch(date);
         
     }
 
     const callTransaction = () => {
+        getTransactionDetails('0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db');
         epochTohumanReadble();
-        calculateDistance()
+        calculateDistance();
     }
 
     const calculateDistance = () => {
-         let lon1 = transact[1]['transact'];
-         let lat1 = transact[2]['transact'];
-         let lat2 = coords.latitude;
-         let lon2 = coords.longitude;
-         sendLocation();
-         console.log(lat1, lat2, lon1, lon2)
+         let lon2 = transact[2]['transact'];
+         let lat2 = transact[1]['transact'];
+         let lat1 = coords.latitude;
+         let lon1 = coords.longitude;
+         sendLocation(lat1, lat2, lon1, lon2);
+         console.log('bbb', transact);
+         console.log('motivation',lat1, lat2, lon1, lon2)
     }
 
     const sendLocation = (lat1, lat2, lon1, lon2) =>{
@@ -66,13 +70,24 @@ const Geolocation = () => {
         let c = 2 * Math.asin(Math.sqrt(a));
         let r = 3956; // in kilometer 
         let res = c * r;
-        setDistance(res);
+        let val = Math.round(res)
+        let dist = val.toString()
         //contractCondition('0x030a2336256e22ba0c99747aeed5bb1fb16de27f',18,4);
-        //console.log('distance',distance, hour, currentAccount);    
-        contractCondition(currentAccount, distance, hour);  
+        console.log(res, dist);
+        console.log(res, hour);
+        console.log(dist, hour, '0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db');  
+        setDistance(dist)  
+        contractCondition('0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db', distance, hour);  
     }
     const hand = () => {
-        contractCondition('0x030a2336256E22Ba0c99747aeeD5bb1fb16De27f','18','4');
+        let a = '0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db';
+        let b = '3';
+        let c = '30';
+        console.log('dix', a , b, c); console.log(a , b, c, 'dar', distance);
+        //getResults('0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db');
+      //  contractCondition('0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db', distance, hour);  
+         contractCondition(a,b,c);
+        // 0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db
     }
     useEffect(()=>{
         !isGeolocationAvailable ? (
@@ -81,10 +96,11 @@ const Geolocation = () => {
             <div>Geolocation is not enabled</div>
         ) : (
         <div>Getting the location data&hellip; </div>
+        
     );
-
+  
     //epochTohumanReadble();
-    getTransactionDetails(currentAccount);
+    //
     });
     
     
@@ -127,12 +143,12 @@ const Geolocation = () => {
                     <div>Getting the location data&hellip; </div>
                 )}
             <div className="text-center">
-               <button onClick={hand} className="bg-black hover:bg-gray-300 hover:scale-x-110 transition-all p-2 py-3 rounded hover:brightness-150 text-2xl">Send Location</button>
+               <button onClick={callTransaction} className="bg-black hover:bg-gray-300 hover:scale-x-110 transition-all p-2 py-3 rounded hover:brightness-150 text-2xl">Send Location</button>
             </div>
-            {/* <div className="text-center">
-               <button onClick={sendPay} className="bg-black hover:bg-gray-300 hover:scale-x-110 transition-all p-2 py-3 rounded hover:brightness-150 text-2xl">Send Pay</button>
+             <div className="text-center">
+               <button onClick={hand} className="bg-black hover:bg-gray-300 hover:scale-x-110 transition-all p-2 py-3 rounded hover:brightness-150 text-2xl">Send</button>
             </div>
-            <div className="text-center">
+           {/* <div className="text-center">
                <button onClick={transfer} className="bg-black hover:bg-gray-300 hover:scale-x-110 transition-all p-2 py-3 rounded hover:brightness-150 text-2xl">transfer</button>
             </div>
             <div className="text-center">
@@ -149,9 +165,9 @@ const Geolocation = () => {
                     decline: ""
                     length: 2 */}
 
-            {/* <div className="mt-4">
-                <p>Out of Compliance, your contract is broken {data}</p>
-            </div> */}
+            <div className="mt-4">
+                <p>Out of Compliance, your contract is broken {output}</p>
+            </div>
             </div>
           </div>
         </div>
