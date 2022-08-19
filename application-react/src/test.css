@@ -81,7 +81,7 @@ background: linear-gradient(217deg, #3282f1, rgba(255,0,0,0) 50.71%),
             linear-gradient(336deg, rgba(21, 21, 21, 0.8), rgba(0,0,255,0) 100%); 
 box-shadow: 0 0 5px 1px #3282f1;
 }
-.btn1{
+.btn-col{
     background: linear-gradient(217deg, #3282f1, rgba(255,0,0,0) 50.71%),
             linear-gradient(127deg, #3282f1 , rgba(0,255,0,0) 50.71%),
             linear-gradient(336deg, rgba(21, 21, 21, 0.8), rgba(0,0,255,0) 100%); 
@@ -109,6 +109,62 @@ box-shadow: 0 0 5px 1px #3282f1;
     background: linear-gradient(217deg, #f1c832, rgba(255,0,0,0) 50.71%),
             linear-gradient(127deg, #3282f1 , rgba(0,255,0,0) 50.71%),
             linear-gradient(336deg, #f1c832, rgba(0,0,255,0) 100%); 
+}
+
+
+
+/* LOCATION CSS */
+.image {
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 90vh;
+    margin: 2rem;
+    background-size: cover;
+    position: relative;
+}
+
+.btnloc {
+    top: 0;
+    /* display: flex; */
+    /* justify-content: flex-end;
+    z-index: 1; */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(2, 2, 65, 0.57);
+}
+
+.mob-box {
+    height: 80vh;
+    width: 60vw;
+    background-color: #fafdffa8;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 6rem;
+    margin-right: 3rem;
+    box-shadow: 0 0 5px 1px #f1329b;
+}
+
+.line {
+   height: 29rem;
+   width: 2px;
+   margin-left: 1rem;
+   margin-top: -3rem;
+   background: #2401255e;
+   box-shadow: 0 0 5px 1px #fd098f96;
+}
+
+.send {
+    background: linear-gradient(217deg, #000000, rgba(255,0,0,0.5) 50.71%),
+            linear-gradient(127deg, #000000 , rgba(0,255,0,0) 50.71%),
+            linear-gradient(336deg, rgba(27, 13, 178, 0.8), rgba(0,0,255,0) 100%); 
+    box-shadow: 0 0 5px 1px #3282f1;
 }
 
 
@@ -178,6 +234,10 @@ box-shadow: 0 0 5px 1px #3282f1;
     .contain-info{
         width: 240px;
     }
+    .mob-box {
+        width: 90vw;
+        margin-right: 2rem;
+    }
   }
     
   @media (max-width: 768px) {
@@ -210,6 +270,10 @@ box-shadow: 0 0 5px 1px #3282f1;
     }
     .contain-info{
         width: 240px;
+    }
+    .mob-box {
+        width: 90vw;
+        margin-right: 2rem;
     }
    }
 

@@ -49,7 +49,7 @@ const Home = () => {
 
     <div className='btn1'>
       <button onClick={connectWallet} 
-        className='btn1 py-3 px-3 m-2 text-white absolute'>
+        className='btn-col py-3 px-3 m-2 text-white absolute'>
         Connect Wallet
       </button>
     </div>

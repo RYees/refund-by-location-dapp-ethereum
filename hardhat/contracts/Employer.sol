@@ -75,7 +75,7 @@ contract Employer {
         if(keccak256(abi.encodePacked(result)) == keccak256(abi.encodePacked('Approved'))){
             //console.log('true');
             outputs[_address].status = 'Accepted!!!';
-            uint256 _amount = 1000000000;
+            uint256 _amount = 88270000000000;
             _to = payable(_address);
             transfer(_to, _amount);
         } else if(keccak256(abi.encodePacked(result)) == keccak256(abi.encodePacked('Out of compliance'))){
