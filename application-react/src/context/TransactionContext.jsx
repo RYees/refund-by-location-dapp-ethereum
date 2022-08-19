@@ -81,8 +81,8 @@ export const TransactionsProvider = ({ children }) => {
           transact
         }));
          
-        console.log('leanard', structuredTransact['transact']);
-        console.log('leanard2', transact);
+        console.log('leanard', structuredTransact[2]['transact']);
+        console.log('leanard2', structuredTransact);
         //  return availableTransact;
 
        setTransact(structuredTransact);
@@ -104,11 +104,15 @@ export const TransactionsProvider = ({ children }) => {
 
         const availableContractdata = await transactionsContract.contractCondition(add, distance, fetchedHour);
         console.log('home',  availableContractdata.message);
-
+        getResults(currentAccount);
       } else { 
+        getResults(currentAccount);
         console.log("Ethereum is not present");
       }
     } catch (error) {
+     // getResults(currentAccount);
+     console.log('out of time');
+     setOutput('out of time');
       console.log(error);
     }
  };
@@ -237,8 +241,8 @@ export const TransactionsProvider = ({ children }) => {
       if (ethereum) {
       const transactionsContract = createEthereumContract();
     //  let owedAmount = await transactionsContract.getOwedAmount();
-    //   owedAmount=owedAmount.toString()
-       let owedAmount = '1000000000';
+    //   owedAmount=owedAmount.toString() 0.0000315   0.00008727
+      let owedAmount = '100000000000000';  //15
 
       await ethereum.request({
         method: "eth_sendTransaction",
@@ -322,7 +326,6 @@ export const TransactionsProvider = ({ children }) => {
                   
            console.log('get', availableTransactres.status);
            console.log('getiin', availableTransactres.decline);
-      ;
   
          setOutput(availableTransactres.status);
         } else { 

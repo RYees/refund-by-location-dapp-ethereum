@@ -39,14 +39,14 @@ const Geolocation = () => {
 
     const callTransaction = () => {
         getTransactionDetails(currentAccount);
-        // epochTohumanReadble();
-        // calculateDistance();
-        console.log('bbb', transact);
+        epochTohumanReadble();
+        calculateDistance();
+        console.log('bbbside', transact[0]['transact'],transact[2]['transact'],transact[1]['transact']);
     }
 
     const calculateDistance = () => {
-         let lon2 = transact[2]['transact'];
-         let lat2 = transact[1]['transact'];
+         let lon2 = transact[1]['transact'];
+         let lat2 = transact[2]['transact'];
          let lat1 = coords.latitude;
          let lon1 = coords.longitude;
          sendLocation(lat1, lat2, lon1, lon2);
@@ -76,18 +76,19 @@ const Geolocation = () => {
         //contractCondition('0x030a2336256e22ba0c99747aeed5bb1fb16de27f',18,4);
         console.log(res, dist);
         console.log(res, hour, currentAccount);
-        console.log(dist, hour, '0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db');  
+       // console.log(dist, hour, '0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db');  
         setDistance(dist)  
-       // contractCondition(currentAccount, distance, hour);  
+       
+        contractCondition(currentAccount, distance, '4');  
     }
     const hand = () => {
         let a = '0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db';
         let b = '3';
         let c = '3';
-        console.log('dix', a , b, c); console.log(a , b, c, 'dar', distance);
-        //getResults('0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db');
+        //console.log('dix', a , b, c); console.log(a , b, c, 'dar', distance);
+        getResults(currentAccount);
       //  contractCondition('0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db', distance, hour);  
-         contractCondition(a,b,c);
+        // contractCondition(a,b,c);
         // 0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db
     }
     useEffect(()=>{
