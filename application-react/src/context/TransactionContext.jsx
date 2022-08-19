@@ -81,7 +81,8 @@ export const TransactionsProvider = ({ children }) => {
           transact
         }));
          
-        //console.log('leanard', structuredTransact);
+        console.log('leanard', structuredTransact['transact']);
+        console.log('leanard2', transact);
         //  return availableTransact;
 
        setTransact(structuredTransact);
@@ -319,11 +320,11 @@ export const TransactionsProvider = ({ children }) => {
   
           // let num = parseInt(Number(availableTransactbalance['_hex']));
                   
-           console.log('get', availableTransactres.accept);
+           console.log('get', availableTransactres.status);
            console.log('getiin', availableTransactres.decline);
       ;
   
-         setOutput(availableTransactres.accept);
+         setOutput(availableTransactres.status);
         } else { 
           console.log("Ethereum is not present");
         }

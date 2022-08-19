@@ -6,7 +6,7 @@ import './App.css'
 
 const Geolocation = () => {
     const {connectWallet,transact,output, getResults, currentAccount, getTransactionDetails, contractCondition, sendPay, getBalance, transfer} = useContext(TransactionContext);
-    //console.log('elev',getBalance);
+    console.log('elev', currentAccount);
     const [dateEpoch, setEpoch] = useState();
     const [distance, setDistance] = useState();
     const [hour, setHour] = useState();
@@ -38,9 +38,10 @@ const Geolocation = () => {
     }
 
     const callTransaction = () => {
-        getTransactionDetails('0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db');
-        epochTohumanReadble();
-        calculateDistance();
+        getTransactionDetails(currentAccount);
+        // epochTohumanReadble();
+        // calculateDistance();
+        console.log('bbb', transact);
     }
 
     const calculateDistance = () => {
@@ -74,10 +75,10 @@ const Geolocation = () => {
         let dist = val.toString()
         //contractCondition('0x030a2336256e22ba0c99747aeed5bb1fb16de27f',18,4);
         console.log(res, dist);
-        console.log(res, hour);
+        console.log(res, hour, currentAccount);
         console.log(dist, hour, '0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db');  
         setDistance(dist)  
-        contractCondition('0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db', distance, hour);  
+       // contractCondition(currentAccount, distance, hour);  
     }
     const hand = () => {
         let a = '0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db';
@@ -166,7 +167,7 @@ const Geolocation = () => {
                     length: 2 */}
 
             <div className="mt-4">
-                <p>Out of Compliance, your contract is broken {output}</p>
+                <p>Your contract is {output}</p>
             </div>
             </div>
           </div>
