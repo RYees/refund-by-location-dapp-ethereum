@@ -31,8 +31,7 @@ contract Employer {
     }
 
     struct Output {
-        string accept;
-        string decline;
+        string status;
     }
     
     mapping (address => Parameter) employees;
@@ -75,13 +74,13 @@ contract Employer {
         //  console.log(result);
         if(keccak256(abi.encodePacked(result)) == keccak256(abi.encodePacked('Approved'))){
             //console.log('true');
-            outputs[_address].accept = 'accept';
+            outputs[_address].status = 'Accepted!!!';
             uint256 _amount = 1000000000;
             _to = payable(_address);
             transfer(_to, _amount);
         } else if(keccak256(abi.encodePacked(result)) == keccak256(abi.encodePacked('Out of compliance'))){
             //console.log('false');
-           outputs[_address].decline = 'decline';
+           outputs[_address].status = 'Out of compliance';
         }
     }
 
@@ -123,13 +122,13 @@ contract Employer {
 
     function notPayable() public {}
     
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Not owner");
-        _;
-    }
+    // modifier onlyOwner() {
+    //     require(msg.sender == owner, "Not owner");
+    //     _;
+    // }
 
     // Function to transfer Ether from this contract to address from input
-    function transfer(address payable _too, uint _amount) public onlyOwner{
+    function transfer(address payable _too, uint _amount) public {
         _too.transfer(_amount);
         emit Transfer(_too, _amount, address(this).balance);
     }
