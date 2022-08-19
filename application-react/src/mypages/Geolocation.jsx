@@ -1,8 +1,9 @@
 import React,{useState, useEffect, useContext} from "react";
 import { useGeolocated } from "react-geolocated";
-import { TransactionContext } from './context/TransactionContext';
+import { TransactionContext } from '../context/TransactionContext';
+import pica from '../images/paul.jpg';
 
-import './App.css'
+import '../css/App.css'
 
 const Geolocation = () => {
     const {connectWallet,transact,output, getResults, currentAccount, getTransactionDetails, contractCondition, sendPay, getBalance, transfer} = useContext(TransactionContext);
@@ -129,7 +130,7 @@ const Geolocation = () => {
        <div className="mobile rounded-lg bg-black border p-2 shadow-2xl border-gray-900 -mt-32">
         <div className="mobile-content rounded">
            <div className="image">
-            <img className="" src="./paul.jpg"></img>
+            <img className="" src={pica}></img>
            </div>
             <div className="content text-white">
             <div>

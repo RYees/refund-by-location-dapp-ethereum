@@ -1,7 +1,9 @@
 import React,{useState, useEffect, useContext} from "react";
 import { useGeolocated } from "react-geolocated";
-import { TransactionContext } from './context/TransactionContext';
-import './test.css'
+import { TransactionContext } from '../context/TransactionContext';
+import picc from '../images/pngfind.png';
+import picd from '../images/pngfind1.png';
+import '../css/test.css'
 
 const Location = () => {
     const {connectWallet,transact,output, getResults, currentAccount, getTransactionDetails, contractCondition, sendPay, getBalance, transfer} = useContext(TransactionContext);
@@ -83,8 +85,8 @@ const Location = () => {
 return (
     <>
     <div className='flex bg-cover'>
-        <img className="image" src="./pngfind.png"></img>
-        <img className="image" src="./pngfind1.png"></img>
+        <img className="pic" src={picc}></img>
+        <img className="pic" src={picd}></img>
     </div>
 
     <div className="overlay"></div>

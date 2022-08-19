@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
-import { TransactionContext } from './context/TransactionContext';
-import './test.css'
+import { TransactionContext } from '../context/TransactionContext';
+import picb from '../images/pngrb.png';
+import '../css/test.css'
 const Input = ({ placeholder, name, type, value, handleChange }) => (
   <input
     placeholder={placeholder}
@@ -55,7 +56,7 @@ const Home = () => {
     </div>
 
     <div className='contains text-white'>
-       <div className='one bg-[#000000] h-full '><img className="h-48" src="./pngrb.png"></img></div>
+       <div className='one bg-[#000000] h-full '><img className="h-48" src={picb}></img></div>
        <div className='two'>
          <div className='mt-3 text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-blue-600'>Your Balance: </div>
          <p className='mb-4'>{urbalance}  <strong className='text-yellow-500'>Ether</strong></p>
