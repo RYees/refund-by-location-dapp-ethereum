@@ -19,7 +19,7 @@ export default function Admin() {
     // console.log('data', value);
     const [show, setShow] =  useState(true);
     // reqDist = 5km;
-    const { connectWallet, currentAccount, sendTransaction, view, formData, sendPay, transfer, getBalance, balance, handleChange, transactions, transact, getTransactionDetails } = useContext(TransactionContext);
+    const { connectWallet, currentAccount, sendTransaction, view, formData, sendPay, transfer, getContractBalance, balance, handleChange, transactions, transact, getTransactionDetails } = useContext(TransactionContext);
     // console.log('scre',currentAccount);
     // console.log('bye',transact);
    
@@ -63,7 +63,7 @@ export default function Admin() {
         <li className='-mt-3 bg-[#a76900] p-3 rounded text-white hover:brightness-150' onClick={changePage}>View</li>
         <li className='-mt-3 bg-[#a76900] p-3 rounded text-white hover:brightness-150' onClick={sendPay}>SendToContract</li>
         <li className='-mt-3 bg-[#a76900] p-3 rounded text-white hover:brightness-150' onClick={transfer}>TransferFee</li>
-        <li className='-mt-3 bg-[#a76900] p-3 rounded text-white hover:brightness-150' onClick={getBalance}>Balance</li>
+        <li className='-mt-3 bg-[#a76900] p-3 rounded text-white hover:brightness-150' onClick={getContractBalance}>Balance</li>
         </ul>
         { view ?
          <div>{balance} Ethers</div> :

@@ -25,12 +25,29 @@ export const TransactionsProvider = ({ children }) => {
   const [transact, setTransact] = useState([]);
   const [output, setOutput] = useState([]);
   const [balance, setBalance] = useState([]);
+  const [urbalance, setUrBalance] = useState([]);
   const [view, setView ] =  useState(false);
 
   const handleChange = (e, name) => {
     setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
   };
-
+  
+    
+  const handleWalletBalance = async () => {
+    const { ethereum } = window;
+    
+    if(ethereum) {
+      //const balance = await ethereum.request({method: 'eth_getBalance'})
+      const provider = new ethers.providers.Web3Provider(ethereum, "any");
+      const accounts = await provider.send("eth_requestAccounts", []);
+      const balance = await provider.getBalance(accounts[0])
+      ethers.utils.formatEther(balance)
+      let bal = balance['_hex'];
+      let valbalance = parseInt(bal)
+      setUrBalance(valbalance)
+      console.log(valbalance)
+  }
+  }
   const getAllTransactions = async () => {
     try {
       if (ethereum) {
@@ -139,18 +156,20 @@ export const TransactionsProvider = ({ children }) => {
   const checkIfWalletIsConnect = async () => {
     try {
       if (!ethereum) return alert("Please install MetaMask.");
-
       const accounts = await ethereum.request({ method: "eth_accounts" });
-      // console.log(accounts);
+      //window.location.reload();
+      console.log(accounts);
       if (accounts.length) {
         setCurrentAccount(accounts[0]);
 
         getAllTransactions();
+        
       } else {
         console.log("No accounts found");
       }
     } catch (error) {
       console.log(error);
+      //https://stackoverflow.com/questions/71926834/ethers-js-returns-the-same-wallet-address-even-if-i-switch-accounts
     }
   };
 
@@ -264,7 +283,7 @@ export const TransactionsProvider = ({ children }) => {
       }
     };
   
-    const getBalance = async () => {
+    const getContractBalance = async () => {
       try {
         if (ethereum) {
           const transactionsContract = createEthereumContract();  
@@ -317,6 +336,7 @@ export const TransactionsProvider = ({ children }) => {
   useEffect(() => {
     checkIfWalletIsConnect();
     checkIfTransactionsExists();
+    handleWalletBalance()
   }, []);
 
   return (
@@ -332,12 +352,13 @@ export const TransactionsProvider = ({ children }) => {
       transact,
       sendPay,
       contractCondition,
-      getBalance,
+      getContractBalance,
       transfer,
       getResults,
       balance,
       view,
-      output
+      output,
+      urbalance   
       }}
     >
       {children}

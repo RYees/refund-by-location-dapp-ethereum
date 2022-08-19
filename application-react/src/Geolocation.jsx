@@ -82,7 +82,7 @@ const Geolocation = () => {
     const hand = () => {
         let a = '0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db';
         let b = '3';
-        let c = '30';
+        let c = '3';
         console.log('dix', a , b, c); console.log(a , b, c, 'dar', distance);
         //getResults('0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db');
       //  contractCondition('0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db', distance, hour);  

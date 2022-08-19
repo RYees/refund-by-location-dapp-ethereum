@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import { TransactionContext } from './context/TransactionContext';
 import './test.css'
 const Input = ({ placeholder, name, type, value, handleChange }) => (
   <input
@@ -11,6 +12,28 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
   />
 );
 const Home = () => {
+  const [show, setShow] =  useState(true);
+  const { connectWallet, urbalance, currentAccount, sendTransaction, view, formData, sendPay, transfer, getContractBalance, balance, handleChange, transactions, transact, getTransactionDetails } = useContext(TransactionContext);
+  
+
+  const handleSubmit = (e) => {
+    const { address, empName, long, lat, requiredDistance, startHour, endHour } = formData;
+    
+    e.preventDefault();
+
+    if (!address || !empName || !long || !lat || !requiredDistance || !startHour || !endHour ) return;
+
+    sendTransaction();
+  };
+
+  const handSubmit = (index,e) => {
+      getTransactionDetails(transactions[index].transaction);
+  }
+
+  const changePage = () => {
+     setShow(!show);
+  }
+
   return (
     <>
     <div className='contained'>
@@ -18,27 +41,31 @@ const Home = () => {
     <div className="side"> 
      <h2 className='title text-4xl italic mt-2 text-center font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-blue-600'>Ethereum</h2>   
      <ul className='text-white'>
-      <li className='lists'><button>Users</button></li>
-      <li className='lists'><button>Transer to contract</button></li>
-      <li className='lists'><button>Contract balance</button></li>
+      <li className='lists'><button onClick={changePage}>Users</button></li>
+      <li className='lists'><button onClick={sendPay}>Transer to contract</button></li>
+      <li className='lists'><button onClick={getContractBalance}>Contract balance</button></li>
      </ul>  
     </div>
 
     <div className='btn1'>
-      <button className='btn1 py-3 px-3 m-2 text-white absolute'>Connect Wallet</button>
+      <button onClick={connectWallet} 
+        className='btn1 py-3 px-3 m-2 text-white absolute'>
+        Connect Wallet
+      </button>
     </div>
 
     <div className='contains text-white'>
        <div className='one bg-[#000000] h-full '><img className="h-48" src="./pngrb.png"></img></div>
        <div className='two'>
          <div className='mt-3 text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-blue-600'>Your Balance: </div>
-         <p className='mb-4'>10000000 <strong className='text-yellow-500'>Ether</strong></p>
+         <p className='mb-4'>{urbalance}  <strong className='text-yellow-500'>Ether</strong></p>
          <hr className='mb-4'></hr>
          <div className='text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-blue-600'>Contract Balance: </div>
-         <p>10000000 <strong className='text-yellow-500'>Ether</strong></p>
+         <p>{balance}  <strong className='text-yellow-500'>Ether</strong></p>
        </div>
     </div>
-
+  
+    { show ?
     <div className='form-contain justify-start flex mt-36 pl-0 pr-0'>
     <div className='flex justify-start shadow-xl rounded-lg'>
         <div>
@@ -48,38 +75,38 @@ const Home = () => {
       <div>    
         <div className="mb-4">
          <label className='text-white text-xl'>Employee Public Address </label>
-            <Input placeholder="public Address" name="address" type="text" className='bg-blue-400'  />
+            <Input placeholder="public Address" name="address" type="text" className='bg-blue-400' handleChange={handleChange} />
         </div>
         <div className='mb-4'>
         <label className='text-white text-xl'>Employee Name</label>
-            <Input type="text" name="empName" placeholder='employee name' className=''  />
+            <Input type="text" name="empName" placeholder='employee name' className='' handleChange={handleChange} />
         </div>
         <div className='mb-4'>
         <label className='text-white text-xl'>Geographical Boundary longitude</label>
-            <Input type="text" name="long" placeholder='longitude' className=''  />
+            <Input type="text" name="long" placeholder='longitude' className='' handleChange={handleChange} />
         </div>
         <div className='mb-4'>
         <label className='text-white text-xl'>Geographical Boundary latitude</label>
-            <Input type="text" name="lat" placeholder='latitude' className='' />
+            <Input type="text" name="lat" placeholder='latitude' className='' handleChange={handleChange} />
         </div>
       </div>    
 
       <div>
         <div className='mb-4'>
             <label className='text-white text-xl'>Required distance</label>
-            <Input type="number" name="requiredDistance" placeholder='distance' className=''/>
+            <Input type="number" name="requiredDistance" placeholder='distance' className='' handleChange={handleChange} />
         </div>
         <div className='mb-4'>
             <label className='text-white text-xl'>Start hour</label>
-            <Input type="number" name="startHour" placeholder='start hour' className='' />
+            <Input type="number" name="startHour" placeholder='start hour' className='' handleChange={handleChange} />
         </div>
         <div className='mb-4'>
             <label className='text-white text-xl'>End hour</label>
-            <Input type="number" name="endHour" placeholder='end hour' className='' />
+            <Input type="number" name="endHour" placeholder='end hour' className='' handleChange={handleChange} />
         </div>
 
         <div className='mt-6'>
-             <button className='py-3 w-32 text-2xl bg-[#3282f1] text-white cursor-pointer'>Add</button>
+             <button onClick={handleSubmit} className='py-3 w-32 text-2xl bg-[#3282f1] text-white cursor-pointer'>Add</button>
         </div>
 
        </div>
@@ -88,7 +115,7 @@ const Home = () => {
         </div>
     </div>
 </div>
-
+:
 <div className='mt-24 form-contain2 pl-0 pr-0'>
 <h1 className='text-5xl text-white'> Device Information </h1>
 
@@ -103,7 +130,7 @@ const Home = () => {
           </tr>
         </thead>
         <tbody className='bg-gray-100'>
-{/* 
+
          {transactions.map((item,index) => ( 
             <tr key={index}>
               <td>{index}</td>
@@ -111,7 +138,7 @@ const Home = () => {
               <td><button onClick={e => handSubmit(index,e)} className='coursor-ponter p-2 rounded hover:brightness-110 text-white bg-[#000]'>Info</button></td>
             </tr>
          ))
-         } */}
+         }
          
         </tbody>
       </table>  
@@ -121,17 +148,17 @@ const Home = () => {
         <h1 className='info-head text-white mx-2'>Details</h1>
         </div>
         <div>
-        <p className='info-head font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-blue-600 mt-1'>values respectively</p> <br></br>
-        {/* {transact.map((item) => (
-           <ul className='text-red-500 text-center'>
-            <li className='list'>{item['transact']} </li>
+        <p className='info-head font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-blue-600 mt-1'>empName, lat, long, start hour, end hour, required distance respectively</p> <br></br>
+        {transact.map((item) => (
+           <ul className='text-gray-900'>
+            <li className='list'><strong className='text-white'>value:-</strong>  {item['transact']} </li>
           </ul>
-        ))} */}
+        ))}
         </div>
       </div>
    </div> 
 </div> 
-
+}
     </div>
     </>
 
