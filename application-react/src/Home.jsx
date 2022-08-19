@@ -116,12 +116,12 @@ const Home = () => {
         </tbody>
       </table>  
     </div>
-      <div className='contain-info bg-[#feffffc6] mt-10 px-24'>
-        <div className='bg-[#000000] py-2'>
-        <h1 className='text-center text-white'>Details</h1>
+      <div className='contain-info mt-10'>
+        <div className='bg-[#000000] py-2 text-left'>
+        <h1 className='info-head text-white mx-2'>Details</h1>
         </div>
         <div>
-        <p className='text-black mt-1 text-center'>values respectively</p> <br></br>
+        <p className='info-head font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-blue-600 mt-1'>values respectively</p> <br></br>
         {/* {transact.map((item) => (
            <ul className='text-red-500 text-center'>
             <li className='list'>{item['transact']} </li>

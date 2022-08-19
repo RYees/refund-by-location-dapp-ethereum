@@ -101,22 +101,120 @@ box-shadow: 0 0 5px 1px #3282f1;
             linear-gradient(127deg, #3282f1 , rgba(0,255,0,0) 50.71%),
             linear-gradient(336deg, #3282f1, rgba(0,0,255,0) 100%); 
     transition: 0.4s;
-
 }
 
-  @media (max-width: 1536px) {
-    
+.contain-info{
+    width: 300px;
+    padding: 0 0.3rem 0 0.3rem;
+    background: linear-gradient(217deg, #f1c832, rgba(255,0,0,0) 50.71%),
+            linear-gradient(127deg, #3282f1 , rgba(0,255,0,0) 50.71%),
+            linear-gradient(336deg, #f1c832, rgba(0,0,255,0) 100%); 
+}
+
+
+/* Responsive */
+
+   @media (max-width: 1280px) {
+    .side {
+        width: 27%;
+        height: 96vh;
+    }
+    .contains {
+        margin-left: 180px;
+    }
+    .form-contain {
+        background-color: #1A1919;
+        margin-left: 14px;
+        width: 95%;
+        margin-top: 430px;
+    }
+    .form-contain2 {
+        margin-left: 14px;   
+    }
+    .contain-box{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    .contain-table{
+        background-color: #3282f186;
+        color: #fff;
+        flex: 1;
+    }
+    .contain-info{
+        width: 240px;
+    }
   }
-  @media (max-width: 1280px) {
-    
-  }
+  
   @media (max-width: 1024px) {
+    .side {
+        width: 27%;
+        height: 96vh;
+    }
+    .contains {
+        margin-left: 180px;
+    }
+    .form-contain {
+        background-color: #1A1919;
+        margin-left: 14px;
+        width: 95%;
+        margin-top: 430px;
+    }
+    .form-contain2 {
+        margin-left: 14px;   
+    }
+    .contain-box{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    .contain-table{
+        background-color: #3282f186;
+        color: #fff;
+        flex: 1;
+    }
+    .contain-info{
+        width: 240px;
+    }
+  }
     
-  }
   @media (max-width: 768px) {
-   
-  }
-  @media (max-width: 640px) {
+    .side {
+        width: 27%;
+        height: 96vh;
+    }
+    .contains {
+        margin-left: 134px;
+    }
+    .form-contain {
+        background-color: #1A1919;
+        margin-left: 14px;
+        width: 95%;
+        margin-top: 430px;
+    }
+    .form-contain2 {
+        margin-left: 14px;   
+    }
+    .contain-box{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    .contain-table{
+        background-color: #3282f186;
+        color: #fff;
+        flex: 1;
+    }
+    .contain-info{
+        width: 240px;
+    }
+   }
+
+  @media (max-width: 640px) {        
+
     /* .scroll {
       width: 400px;
       height: 400px;

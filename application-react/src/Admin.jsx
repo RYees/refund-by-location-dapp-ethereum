@@ -143,10 +143,10 @@ export default function Admin() {
     </div>
       <div className='contain-box bg-white w-52 mr-96 mt-10 px-4'>
         <div className='bg-[#a76900] py-2'>
-        <h1 className='text-center text-white'>Details</h1>
+        <h1 className='text-center text-whitepx-2'>Details</h1>
         </div>
         <div>
-        <p className='text-black mt-1 text-center'>values respectively</p> <br></br>
+        <p className='text-white mt-1 text-center'>values respectively</p> <br></br>
         {transact.map((item) => (
            <ul className='text-red-500 text-center'>
             <li className='list'>{item['transact']} </li>
