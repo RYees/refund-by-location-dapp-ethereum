@@ -6,10 +6,14 @@ import picd from '../images/pngfind1.png';
 import '../css/test.css'
 
 const Location = () => {
-    const {connectWallet, transact, output, currentAccount, getTransactionDetails, contractCondition} = useContext(TransactionContext);
+    const {connectWallet, transact, output, currentAccount, getTransactionDetails, contractCondition, getResults} = useContext(TransactionContext);
     const [dateEpoch, setEpoch] = useState();
     const [distance, setDistance] = useState();
     const [hour, setHour] = useState();
+    const [lat1, setLat1] = useState();
+    const [lat2, setLat2] = useState();
+    const [lon1,setLong1] = useState();
+    const [lon2,setLong2] = useState();
 
     const { timestamp, coords, isGeolocationAvailable, isGeolocationEnabled } =
     useGeolocated({
@@ -41,6 +45,8 @@ const Location = () => {
         setEpoch(date);        
     }
     getTransactionDetails(currentAccount);
+    
+
     const callTransaction = () => {
         epochTohumanReadble();
         calculateDistance();
@@ -52,12 +58,14 @@ const Location = () => {
          let lat2 = transact[2]['transact'];
          let lat1 = coords.latitude;
          let lon1 = coords.longitude;
+         setLat1(lat1); setLat2(lat2); setLong1(lon1); setLong2(lon2);
          sendLocation(lat1, lat2, lon1, lon2);
          console.log('bbb', transact);
-         console.log('motivation',lat1, lat2, lon1, lon2)
+        //  console.log('motivation',lat1, lat2, lon1, lon2)
     }
 
     const sendLocation = (lat1, lat2, lon1, lon2) =>{
+        console.log('motivation',lat1, lat2, lon1, lon2)
         lon1 = lon1 * Math.PI / 180;
         lon2 = lon2 * Math.PI / 180;
         lat1 = lat1 * Math.PI / 180;
@@ -75,10 +83,15 @@ const Location = () => {
         let res = c * r;
         let val = Math.round(res)
         let dist = val.toString()
-        console.log(res, dist);
-        console.log(res, hour, currentAccount);
+        console.log('hi',res, dist);
+        console.log('hello',res, hour, currentAccount);
         setDistance(dist)  
-        contractCondition(currentAccount, distance, '40');  
+        //console.log('vation', currentAccount, distance, '4')
+        contractCondition(currentAccount, distance, '4');  
+    }
+   
+    const checkResult = () => {
+        getResults(currentAccount);
     }
 
 return (
@@ -114,12 +127,17 @@ return (
             </div>
             <div className="line"></div>
             
-            <div className="text-center">
-                <button onClick={callTransaction} className="send mx-32 my-32 text-center text-white transition-all px-4 py-4 rounded hover:brightness-150 text-xl">Send Location</button>
-            <div className="mt-4">
-                <p className="text-xl">Location <strong className="text-3xl text-blue-900">{output}</strong></p>
+        <div className="flex flex-col mx-24 my-20">
+            <div className="text-center mb-5">
+                <button onClick={callTransaction} className="send text-center text-white transition-all px-4 py-4 rounded hover:brightness-150 text-xl">Send Location</button>
+            </div>  
+            <div className="text-center mb-20">
+                   <button onClick={checkResult} className="send text-center text-white transition-all px-2 py-2 rounded hover:brightness-150 text-xl">Check</button>
             </div>
-            </div>        
+            <div className="mt-4">
+                <p className="text-xl"><strong className="text-3xl text-blue-900">{output}</strong></p>
+            </div>  
+        </div>    
         </div>
     
     </div>

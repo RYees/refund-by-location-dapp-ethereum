@@ -94,16 +94,15 @@ export const TransactionsProvider = ({ children }) => {
         const transactionsContract = createEthereumContract();
         const availableContractdata = await transactionsContract.contractCondition(add, distance, fetchedHour);
         console.log('home',  availableContractdata.message);
-        getResults(currentAccount);
+        // getResults(currentAccount);
       } else { 
-        getResults(currentAccount);
+        // getResults(currentAccount);
         console.log("Ethereum is not present");
       }
     } catch (error) {
-      setOutput('Out of time');
+      setOutput('Contact the Administration');
       console.log(error)    
     }
-    setOutput('Inform the admin');
   };
 
   const checkIfWalletIsConnect = async () => {
