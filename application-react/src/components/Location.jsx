@@ -25,7 +25,7 @@ const Location = () => {
         ) : !isGeolocationEnabled ? (
             <div>Geolocation is not enabled</div>
         ) : (
-        <div>Getting the location data&hellip; </div>    
+        <div>Getting the location data...&hellip; </div>    
         );
     });
 
@@ -40,9 +40,8 @@ const Location = () => {
         setHour(hourtime);
         setEpoch(date);        
     }
-
+    getTransactionDetails(currentAccount);
     const callTransaction = () => {
-        getTransactionDetails(currentAccount);
         epochTohumanReadble();
         calculateDistance();
         console.log('bbbside', transact[0]['transact'],transact[2]['transact'],transact[1]['transact']);
@@ -79,7 +78,7 @@ const Location = () => {
         console.log(res, dist);
         console.log(res, hour, currentAccount);
         setDistance(dist)  
-        contractCondition(currentAccount, distance, '4');  
+        contractCondition(currentAccount, distance, '40');  
     }
 
 return (

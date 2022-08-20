@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { TransactionContext } from '../context/TransactionContext';
 import picb from '../images/pngrb.png';
 import '../css/test.css'
@@ -14,7 +14,7 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 );
 const Home = () => {
   const [show, setShow] =  useState(true);
-  const { connectWallet, urbalance, currentAccount, sendTransaction, view, formData, sendPay, getContractBalance, balance, handleChange, transactions, transact, getTransactionDetails } = useContext(TransactionContext);
+  const { connectWallet, urbalance, currentAccount, sendTransaction, view, visible, formData, sendPay, getContractBalance, balance, handleChange, transactions, transact, getTransactionDetails } = useContext(TransactionContext);
   
 
   const handleSubmit = (e) => {
@@ -35,6 +35,10 @@ const Home = () => {
      setShow(!show);
   }
 
+   
+  useEffect(()=>{
+    getContractBalance()
+  });
   return (
     <>
     <div className='contained'>
@@ -44,7 +48,7 @@ const Home = () => {
      <ul className='text-white'>
       <li className='lists'><button onClick={changePage}>Users</button></li>
       <li className='lists'><button onClick={sendPay}>Transer to contract</button></li>
-      <li className='lists'><button onClick={getContractBalance}>Contract balance</button></li>
+      {/* <li className='lists'><button onClick={getContractBalance}>Contract balance</button></li> */}
      </ul>  
     </div>
 
@@ -65,6 +69,11 @@ const Home = () => {
          <p>{balance}  <strong className='text-yellow-500'>Ether</strong></p>
        </div>
     </div>
+
+    { visible ? 
+    <div className='flex justify-end px-2 text-2xl text-red-600'> 
+    <p>Contract balance is below the sufficient amout of Ether</p>
+    </div> : <p></p>}
   
     { show ?
     <div className='form-contain justify-start flex mt-36 pl-0 pr-0'>

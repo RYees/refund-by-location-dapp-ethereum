@@ -26,7 +26,8 @@ export const TransactionsProvider = ({ children }) => {
   const [output, setOutput] = useState([]);
   const [balance, setBalance] = useState([]);
   const [urbalance, setUrBalance] = useState([]);
-  const [view, setView ] =  useState(false);
+  const [view, setView] =  useState(false);
+  const [visible, setVisible] =  useState(false);
 
   const handleChange = (e, name) => {
     setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
@@ -85,9 +86,7 @@ export const TransactionsProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
-
   };
-
 
   const contractCondition = async (add, distance, fetchedHour) => {
     try {
@@ -101,9 +100,10 @@ export const TransactionsProvider = ({ children }) => {
         console.log("Ethereum is not present");
       }
     } catch (error) {
-      setOutput('out of time');
-      console.log(error);
+      setOutput('Out of time');
+      console.log(error)    
     }
+    setOutput('Inform the admin');
   };
 
   const checkIfWalletIsConnect = async () => {
@@ -177,13 +177,12 @@ export const TransactionsProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-
       throw new Error("No ethereum object");
     }
   };
 
   const sendPay = async () => {
-      try {
+    try {
       if (ethereum) {
       const transactionsContract = createEthereumContract();
       let owedAmount = '100000000000000';  //15
@@ -195,9 +194,9 @@ export const TransactionsProvider = ({ children }) => {
           gas: "0x5208",
           value: owedAmount,
         }],
-      });
+    });
 
-      let transactioned=await transactionsContract.deposit({value:owedAmount})     
+    let transactioned=await transactionsContract.deposit({value:owedAmount})     
       await transactioned.wait();
         }
       } catch (error) {
@@ -232,6 +231,13 @@ export const TransactionsProvider = ({ children }) => {
         let num = parseInt(val);
           setBalance(num)
           setView(!view);
+
+          if(num < 100000000000000){
+            setVisible(true);
+            console.log('low')
+          } else {
+            console.log('high')
+          }
       } else { 
         console.log("Ethereum is not present");
       }
@@ -241,22 +247,21 @@ export const TransactionsProvider = ({ children }) => {
   };
   
    
-    const getResults = async (add) => {
-      try {
-        if (ethereum) {
-          const transactionsContract = createEthereumContract();
-  
-          const availableTransactres = await transactionsContract.getResults(add);
-         
-         setOutput(availableTransactres.status);
-        } else { 
-          console.log("Ethereum is not present");
-        }
-      } catch (error) {
-        console.log(error);
+  const getResults = async (add) => {
+    try {
+      if (ethereum) {
+        const transactionsContract = createEthereumContract();
+
+        const availableTransactres = await transactionsContract.getResults(add);
+        
+        setOutput(availableTransactres.status);
+      } else { 
+        console.log("Ethereum is not present");
       }
-  
-    };
+    } catch (error) {
+      console.log(error);
+    }  
+  };
 
   useEffect(() => {
     checkIfWalletIsConnect();
@@ -283,7 +288,8 @@ export const TransactionsProvider = ({ children }) => {
       view,
       output,
       urbalance,
-      transfer   
+      transfer,
+      visible   
       }}
     >
       {children}
