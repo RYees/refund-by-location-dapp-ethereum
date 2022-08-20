@@ -14,7 +14,7 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 );
 const Home = () => {
   const [show, setShow] =  useState(true);
-  const { connectWallet, urbalance, currentAccount, sendTransaction, view, formData, sendPay, transfer, getContractBalance, balance, handleChange, transactions, transact, getTransactionDetails } = useContext(TransactionContext);
+  const { connectWallet, urbalance, currentAccount, sendTransaction, view, formData, sendPay, getContractBalance, balance, handleChange, transactions, transact, getTransactionDetails } = useContext(TransactionContext);
   
 
   const handleSubmit = (e) => {

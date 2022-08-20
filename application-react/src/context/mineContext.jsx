@@ -37,6 +37,7 @@ export const TransactionsProvider = ({ children }) => {
     const { ethereum } = window;
     
     if(ethereum) {
+      //const balance = await ethereum.request({method: 'eth_getBalance'})
       const provider = new ethers.providers.Web3Provider(ethereum, "any");
       const accounts = await provider.send("eth_requestAccounts", []);
       const balance = await provider.getBalance(accounts[0])
@@ -57,6 +58,8 @@ export const TransactionsProvider = ({ children }) => {
         const structuredTransactions = availableTransactions.map((transaction) => ({
           transaction
         }));
+         
+        // console.log('accounts',availableTransactions[0]._hex);
 
         setTransactions(structuredTransactions);
       } else {
@@ -77,8 +80,12 @@ export const TransactionsProvider = ({ children }) => {
         const structuredTransact = availableTransact.map((transact) => ({
           transact
         }));
+         
+        console.log('leanard', structuredTransact[2]['transact']);
+        console.log('leanard2', structuredTransact);
+        //  return availableTransact;
 
-        setTransact(structuredTransact);
+       setTransact(structuredTransact);
       } else { 
         console.log("Ethereum is not present");
       }
@@ -90,9 +97,11 @@ export const TransactionsProvider = ({ children }) => {
 
 
   const contractCondition = async (add, distance, fetchedHour) => {
+    // (contractCondition(address payable _to, address _address, string memory distance, string memory fetchedHour))
     try {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
+
         const availableContractdata = await transactionsContract.contractCondition(add, distance, fetchedHour);
         console.log('home',  availableContractdata.message);
         getResults(currentAccount);
@@ -101,10 +110,53 @@ export const TransactionsProvider = ({ children }) => {
         console.log("Ethereum is not present");
       }
     } catch (error) {
-      setOutput('out of time');
+     // getResults(currentAccount);
+     console.log('out of time');
+     setOutput('out of time');
       console.log(error);
     }
-  };
+ };
+
+
+ const sendTransact = async () => {
+  try {
+    if (ethereum) {
+      const { addressTo, amount, keyword, message } = formData;
+      const transactionsContract = createEthereumContract();
+      const parsedAmount = ethers.utils.parseEther(amount);
+
+      await ethereum.request({
+        method: "eth_sendTransaction",
+        params: [{
+          // from: currentAccount,
+          to: addressTo,
+          gas: "0x5208",
+          value: parsedAmount._hex,
+        }],
+      });
+
+      const transactionHash = await transactionsContract.addToBlockchain(addressTo, parsedAmount, message, keyword);
+
+      setIsLoading(true);
+      console.log(`Loading - ${transactionHash.hash}`);
+      await transactionHash.wait();
+      console.log(`Success - ${transactionHash.hash}`);
+      setIsLoading(false);
+
+      const transactionsCount = await transactionsContract.transfer();
+
+      //setTransactionCount(transactionsCount.toNumber());
+      window.location.reload();
+    } else {
+      console.log("No ethereum object");
+    }
+  } catch (error) {
+    console.log(error);
+
+    throw new Error("No ethereum object");
+  }
+};
+
 
   const checkIfWalletIsConnect = async () => {
     try {
@@ -114,6 +166,7 @@ export const TransactionsProvider = ({ children }) => {
       console.log(accounts);
       if (accounts.length) {
         setCurrentAccount(accounts[0]);
+
         getAllTransactions();
         
       } else {
@@ -121,7 +174,8 @@ export const TransactionsProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      }
+      //https://stackoverflow.com/questions/71926834/ethers-js-returns-the-same-wallet-address-even-if-i-switch-accounts
+    }
   };
 
   const checkIfTransactionsExists = async () => {
@@ -129,8 +183,8 @@ export const TransactionsProvider = ({ children }) => {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
         const currentTransactionCount = await transactionsContract.countEmployees();
-        setTransactionCount(currentTransactionCount);
-        //window.localStorage.setItem("transactionCount", currentTransactionCount);
+
+        window.localStorage.setItem("transactionCount", currentTransactionCount);
       }
     } catch (error) {
       console.log(error);
@@ -186,7 +240,10 @@ export const TransactionsProvider = ({ children }) => {
       try {
       if (ethereum) {
       const transactionsContract = createEthereumContract();
+    //  let owedAmount = await transactionsContract.getOwedAmount();
+    //   owedAmount=owedAmount.toString() 0.0000315   0.00008727
       let owedAmount = '100000000000000';  //15
+
       await ethereum.request({
         method: "eth_sendTransaction",
         params: [{
@@ -197,8 +254,16 @@ export const TransactionsProvider = ({ children }) => {
         }],
       });
 
-      let transactioned=await transactionsContract.deposit({value:owedAmount})     
+//      const transactionHash = await transactionsContract.addToBlockchain(addressTo, parsedAmount, message, keyword);
+
+      let transactioned=await transactionsContract.deposit({value:owedAmount})
+      let transactione= await transactionsContract.getBalance();
+   //   const structuredTransact = transactioned.map((transact1) => ({
+     //   transact1
+     // }));
+       
       await transactioned.wait();
+      console.log('jada',structuredTransact);
         }
       } catch (error) {
         console.log(error);
@@ -206,39 +271,48 @@ export const TransactionsProvider = ({ children }) => {
         throw new Error("No ethereum object");
       }
     };
-  
-  const transfer = async () => {
-    try {
-    if (ethereum) {
-    const transactionsContract = createEthereumContract();
-    let addressi = '0x030a2336256E22Ba0c99747aeeD5bb1fb16De27f';
-    let amounti = 1000000000;
-    let transactioned=await transactionsContract.transfer(addressi, amounti)
-    // await transactioned.wait();
-    }
-    } catch (error) {
-      console.log(error);
 
-      throw new Error("No ethereum object");
-    }
-  };
-
-  const getContractBalance = async () => {
-    try {
+    const transfer = async () => {
+      try {
       if (ethereum) {
-        const transactionsContract = createEthereumContract();  
-        const availableTransactbalance = await transactionsContract.getBalance();
-        let val = availableTransactbalance['_hex'];
-        let num = parseInt(val);
-          setBalance(num)
-          setView(!view);
-      } else { 
-        console.log("Ethereum is not present");
+      const transactionsContract = createEthereumContract();
+      let addressi = '0x030a2336256E22Ba0c99747aeeD5bb1fb16De27f';
+      let amounti = 1000000000;
+      let transactioned=await transactionsContract.transfer(addressi, amounti)
+      // await transactioned.wait();
       }
-    } catch (error) {
-      console.log(error);
-    }  
-  };
+      } catch (error) {
+        console.log(error);
+  
+        throw new Error("No ethereum object");
+      }
+    };
+  
+    const getContractBalance = async () => {
+      try {
+        if (ethereum) {
+          const transactionsContract = createEthereumContract();  
+          const availableTransactbalance = await transactionsContract.getBalance();
+          let val = availableTransactbalance['_hex'];
+          let num = parseInt(val);
+          //  console.log('home', num);
+          //  console.log(availableTransactbalance['_hex']);
+           setBalance(num)
+           setView(!view);
+          //  if(availableTransactbalance === 3000000000){
+          //   console.log('correct')
+          //  }
+          //  else {
+          //   console.log('false')
+          //  }
+        } else { 
+          console.log("Ethereum is not present");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+  
+    };
   
    
     const getResults = async (add) => {
@@ -247,7 +321,12 @@ export const TransactionsProvider = ({ children }) => {
           const transactionsContract = createEthereumContract();
   
           const availableTransactres = await transactionsContract.getResults(add);
-         
+  
+          // let num = parseInt(Number(availableTransactbalance['_hex']));
+                  
+           console.log('get', availableTransactres.status);
+           console.log('getiin', availableTransactres.decline);
+  
          setOutput(availableTransactres.status);
         } else { 
           console.log("Ethereum is not present");
@@ -278,12 +357,12 @@ export const TransactionsProvider = ({ children }) => {
       sendPay,
       contractCondition,
       getContractBalance,
+      transfer,
       getResults,
       balance,
       view,
       output,
-      urbalance,
-      transfer   
+      urbalance   
       }}
     >
       {children}

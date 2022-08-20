@@ -6,7 +6,7 @@ import picd from '../images/pngfind1.png';
 import '../css/test.css'
 
 const Location = () => {
-    const {connectWallet,transact,output, getResults, currentAccount, getTransactionDetails, contractCondition, sendPay, getBalance, transfer} = useContext(TransactionContext);
+    const {connectWallet, transact, output, currentAccount, getTransactionDetails, contractCondition} = useContext(TransactionContext);
     const [dateEpoch, setEpoch] = useState();
     const [distance, setDistance] = useState();
     const [hour, setHour] = useState();

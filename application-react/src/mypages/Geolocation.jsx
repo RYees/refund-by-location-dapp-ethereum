@@ -6,7 +6,7 @@ import pica from '../images/paul.jpg';
 import '../css/App.css'
 
 const Geolocation = () => {
-    const {connectWallet,transact,output, getResults, currentAccount, getTransactionDetails, contractCondition, sendPay, getBalance, transfer} = useContext(TransactionContext);
+    const {connectWallet,transact,output, getResults, currentAccount, getTransactionDetails, contractCondition} = useContext(TransactionContext);
     console.log('elev', currentAccount);
     const [dateEpoch, setEpoch] = useState();
     const [distance, setDistance] = useState();
