@@ -132,7 +132,7 @@ return (
                 <button onClick={callTransaction} className="send text-center text-white transition-all px-4 py-4 rounded hover:brightness-150 text-xl">Send Location</button>
             </div>  
             <div className="text-center mb-20">
-                   <button onClick={checkResult} className="send text-center text-white transition-all px-2 py-2 rounded hover:brightness-150 text-xl">Check</button>
+                   <button onClick={checkResult} className="send text-center text-white transition-all px-2 py-2 rounded hover:brightness-150 text-xl">Status</button>
             </div>
             <div className="mt-4">
                 <p className="text-xl"><strong className="text-3xl text-blue-900">{output}</strong></p>

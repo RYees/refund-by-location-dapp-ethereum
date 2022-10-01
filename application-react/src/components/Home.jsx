@@ -63,16 +63,16 @@ const Home = () => {
        <div className='one bg-[#000000] h-full '><img className="h-48" src={picb}></img></div>
        <div className='two'>
          <div className='mt-3 text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-blue-600'>Your Balance: </div>
-         <p className='mb-4'>{urbalance}  <strong className='text-yellow-500'>Ether</strong></p>
+         <p className='mb-4'>{urbalance}  <strong className='text-yellow-500'>Wei</strong></p>
          <hr className='mb-4'></hr>
          <div className='text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-blue-600'>Contract Balance: </div>
-         <p>{balance}  <strong className='text-yellow-500'>Ether</strong></p>
+         <p>{balance}  <strong className='text-yellow-500'>Wei</strong></p>
        </div>
     </div>
 
     { visible ? 
     <div className='flex justify-end px-2 text-2xl text-red-600'> 
-    <p>Contract balance is below the sufficient amout of Ether</p>
+    <p>Contract balance is below the sufficient amout of Wei</p>
     </div> : <p></p>}
   
     { show ?

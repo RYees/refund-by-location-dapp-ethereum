@@ -66,7 +66,7 @@ export default function Admin() {
         <li className='-mt-3 bg-[#a76900] p-3 rounded text-white hover:brightness-150' onClick={getContractBalance}>Balance</li>
         </ul>
         { view ?
-         <div>{balance} Ethers</div> :
+         <div>{balance} E</div> :
          <p></p>
         } 
      </div>     
