@@ -9,11 +9,19 @@ describe('Employer Unit Test', function () {
       await Employer.deployed();
     });
 
-    beforeEach(async function () {
-      await Employer.setEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', 'emp','34.09', '98.43', '20', '3','4');
-    })
+    // beforeEach(async function () {
+      
+    //   await Employer.setEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', 'emp','34.09', '98.43', '20', '3','4');
+    //   await Employer.setEmployee('0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2', 'emp','34.09', '98.43', '20', '3','4');
 
+    // })
     it('storing a value', async function () {
+      //  await Employer.setEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', 'emp1','34.09', '98.43', '20', '3','4');
+      await Employer.setEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', 'emp','34.09', '98.43', '20', '3','4');
+      //expect((await Employer.getEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4')).toString()).to.equal('34.09', '98.43', '3:30');
+    });
+
+    it('get a value', async function () {
       //  await Employer.setEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', 'emp1','34.09', '98.43', '20', '3','4');
       expect((await Employer.getAllEmployees()).toString()).to.equal('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4');
       //expect((await Employer.getEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4')).toString()).to.equal('34.09', '98.43', '3:30');
@@ -26,7 +34,7 @@ describe('Employer Unit Test', function () {
 
     it('retrieve returns a count of previously stored', async function () {
       //  await Employer.setEmployee('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4', '34.09', '98.43', '3:30');
-       expect((await Employer. countEmployees()).toNumber()).to.equal(3);
+       expect((await Employer.countEmployees()).toNumber()).to.equal(1);
     }); 
     
 
@@ -36,6 +44,6 @@ describe('Employer Unit Test', function () {
 
     it('calling the contract balance', async function () {
      // expect(await Employer.getBalance()).to.be.within(0);
-      expect((await Employer. getBalance()).toNumber()).to.equal(0); 
+      expect((await Employer.getBalance()).toNumber()).to.equal(0); 
     });
   });
